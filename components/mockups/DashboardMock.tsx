@@ -100,8 +100,8 @@ export function DashboardMock() {
           ))}
         </div>
 
-        {/* Graphe + répartition */}
-        <div className="mt-2.5 grid grid-cols-[1.6fr_1fr] gap-2.5">
+        {/* Graphe + répartition (empilés sur mobile pour ne rien couper) */}
+        <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-[1.6fr_1fr]">
           {/* Histogramme inscriptions */}
           <div className="rounded-xl border border-line bg-white p-3">
             <div className="mb-3 flex items-center justify-between">

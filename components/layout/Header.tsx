@@ -37,7 +37,7 @@ export function Header() {
         scrolled ? "border-b border-line" : "border-b border-transparent"
       )}
     >
-      <Container className="flex h-17 items-center justify-between sm:h-22">
+      <Container className="flex h-18 items-center justify-between sm:h-22">
         {/* Logo */}
         <Link
           href="/#hero"
@@ -51,7 +51,7 @@ export function Header() {
             width={260}
             height={68}
             priority
-            className="h-15 w-auto sm:h-19"
+            className="h-16 w-auto sm:h-19"
           />
         </Link>
 

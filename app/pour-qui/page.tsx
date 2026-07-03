@@ -78,9 +78,9 @@ export default function PourQuiPage() {
                 style={{ animationDelay: "0.08s" }}
               >
                 Pensé pour les clubs et{" "}
-                <span className="relative whitespace-nowrap">
+                <span className="relative inline-block">
                   associations sportives
-                  <span className="absolute -bottom-1 left-0 h-[6px] w-full rounded-full bg-gold/70" />
+                  <span className="absolute -bottom-1 left-0 h-[5px] w-full rounded-full bg-gold/70" />
                 </span>
                 .
               </h1>
@@ -198,7 +198,7 @@ export default function PourQuiPage() {
           <div data-reveal className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-extrabold leading-tight text-ink-900 sm:text-4xl">
               Découvrez DriveAsso sur{" "}
-              <span className="relative whitespace-nowrap">
+              <span className="relative inline-block">
                 votre club
                 <span className="absolute -bottom-1 left-0 h-[5px] w-full rounded-full bg-gold/70" />
               </span>

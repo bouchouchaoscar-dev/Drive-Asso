@@ -116,7 +116,7 @@ export function SurMesure() {
         <div data-reveal className="mx-auto mt-12 max-w-2xl text-center">
           <p className="font-display text-xl font-semibold text-ink-900 sm:text-2xl">
             Découvrez à quoi ressemblerait{" "}
-            <span className="relative whitespace-nowrap">
+            <span className="relative inline-block">
               votre club
               <span className="absolute -bottom-1 left-0 h-[5px] w-full rounded-full bg-gold/70" />
             </span>{" "}

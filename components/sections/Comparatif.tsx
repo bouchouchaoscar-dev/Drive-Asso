@@ -12,7 +12,55 @@ export function Comparatif() {
         title="Une plateforme qui vous appartient vraiment."
       />
 
-      <div data-reveal className="mt-14 overflow-hidden rounded-2xl border border-line shadow-sm">
+      {/* ---- Version mobile : une carte par critère (bordures alignées) ---- */}
+      <div className="mt-10 space-y-3 sm:hidden">
+        {COMPARATIF.rows.map((row, i) => (
+          <div
+            key={row.axis}
+            data-reveal
+            data-reveal-delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
+            className="rounded-2xl border border-line bg-white p-4 shadow-sm"
+          >
+            <div className="font-display text-sm font-bold text-ink-900">
+              {row.axis}
+            </div>
+            <div className="mt-3 space-y-3">
+              <div className="flex gap-2.5">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gold-soft text-gold-600">
+                  <Check size={13} strokeWidth={3} />
+                </span>
+                <div>
+                  <div className="font-display text-[10px] font-bold uppercase tracking-wide text-gold-600">
+                    DriveAsso
+                  </div>
+                  <div className="mt-0.5 text-[13px] leading-relaxed text-ink-800">
+                    {row.driveasso}
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-2.5 border-t border-line pt-3">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-mist text-smoke">
+                  <Minus size={13} strokeWidth={3} />
+                </span>
+                <div>
+                  <div className="font-display text-[10px] font-bold uppercase tracking-wide text-smoke">
+                    Plateforme mutualisée
+                  </div>
+                  <div className="mt-0.5 text-[13px] leading-relaxed text-smoke">
+                    {row.autres}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ---- Version desktop : tableau (inchangé) ---- */}
+      <div
+        data-reveal
+        className="mt-14 hidden overflow-hidden rounded-2xl border border-line shadow-sm sm:block"
+      >
         {/* En-têtes */}
         <div className="grid grid-cols-[1.2fr_1.4fr_1.4fr] bg-white text-sm">
           <div className="px-4 py-4 sm:px-6" />
