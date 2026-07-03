@@ -84,19 +84,19 @@ body {
    .section-y-b = bas seulement (1re section d'une page : le haut gère
    le dégagement sous le header sticky). Modifier ici = modifier partout. */
 .section-y {
-  padding-top: 3.5rem; /* 56px mobile */
-  padding-bottom: 3.5rem;
+  padding-top: 3rem; /* 48px mobile */
+  padding-bottom: 3rem;
 }
 .section-y-b {
-  padding-bottom: 3.5rem;
+  padding-bottom: 3rem;
 }
 @media (min-width: 640px) {
   .section-y {
-    padding-top: 5rem; /* 80px desktop */
-    padding-bottom: 5rem;
+    padding-top: 4.5rem; /* 72px desktop */
+    padding-bottom: 4.5rem;
   }
   .section-y-b {
-    padding-bottom: 5rem;
+    padding-bottom: 4.5rem;
   }
 }
 
