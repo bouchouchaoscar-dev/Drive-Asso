@@ -23,7 +23,7 @@ export function Footer() {
               alt="DriveAsso"
               width={300}
               height={78}
-              className="h-16 w-auto max-w-full sm:h-20"
+              className="h-17 w-auto max-w-full sm:h-20"
             />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-smoke">
               La gestion associative nouvelle génération. Un site sur-mesure et
