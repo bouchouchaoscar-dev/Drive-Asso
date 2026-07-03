@@ -55,7 +55,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative scroll-mt-24 bg-paper py-20 sm:py-28">
+    <section id="contact" className="relative scroll-mt-24 bg-paper section-y">
       <Container className="relative">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           {/* Accroche */}

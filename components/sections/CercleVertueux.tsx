@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/Container";
  */
 export function CercleVertueux() {
   return (
-    <section className="bg-paper">
+    <section className="bg-paper section-y">
       <Container>
         <div
           data-reveal

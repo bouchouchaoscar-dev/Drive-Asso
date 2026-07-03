@@ -78,6 +78,28 @@ body {
   color: var(--color-ink-900);
 }
 
+/* ---- Espacement vertical STANDARD des sections (source unique) ----
+   Rythme identique partout : chaque section a le même padding haut+bas.
+   .section-y  = haut + bas (sections courantes)
+   .section-y-b = bas seulement (1re section d'une page : le haut gère
+   le dégagement sous le header sticky). Modifier ici = modifier partout. */
+.section-y {
+  padding-top: 5rem; /* 80px mobile */
+  padding-bottom: 5rem;
+}
+.section-y-b {
+  padding-bottom: 5rem;
+}
+@media (min-width: 640px) {
+  .section-y {
+    padding-top: 7rem; /* 112px desktop */
+    padding-bottom: 7rem;
+  }
+  .section-y-b {
+    padding-bottom: 7rem;
+  }
+}
+
 /* ---- Typographie ---- */
 .font-display {
   font-family: var(--font-display), system-ui, sans-serif;

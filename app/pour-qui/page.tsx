@@ -69,7 +69,7 @@ export default function PourQuiPage() {
       <Header />
       <main className="flex-1">
         {/* Hero de page */}
-        <section className="relative overflow-hidden bg-paper pt-28 pb-16 sm:pt-36 sm:pb-20">
+        <section className="relative overflow-hidden bg-paper pt-28 sm:pt-36 section-y-b">
           <Container className="relative">
             <div className="mx-auto max-w-3xl text-center">
               <div className="animate-rise eyebrow mb-4">Pour qui ?</div>
@@ -107,7 +107,7 @@ export default function PourQuiPage() {
         </section>
 
         {/* Profils cibles */}
-        <Section tone="paper" className="pt-4 sm:pt-6">
+        <Section tone="paper">
           <SectionHeading
             align="center"
             eyebrow="À qui ça s'adresse"
@@ -176,7 +176,7 @@ export default function PourQuiPage() {
         </Section>
 
         {/* Ouverture légère (secondaire) */}
-        <Section tone="paper" className="py-14 sm:py-16">
+        <Section tone="paper">
           <div
             data-reveal
             className="mx-auto max-w-3xl rounded-2xl border border-line bg-paper-2 p-7 text-center sm:p-8"
