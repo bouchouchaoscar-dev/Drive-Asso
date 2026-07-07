@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, ArrowRight, Mail } from "lucide-react";
 import { SITE } from "@/lib/content";
+import { cn } from "@/lib/cn";
 
 type FormState = {
   nom: string;
@@ -24,16 +25,49 @@ const empty: FormState = {
 
 export function Contact() {
   const [form, setForm] = useState<FormState>(empty);
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormState, string>>
+  >({});
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const update =
     (field: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setForm((f) => ({ ...f, [field]: e.target.value }));
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      setForm((f) => ({ ...f, [field]: value }));
+      // efface l'erreur du champ dès que l'utilisateur le corrige
+      setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
+    };
+
+  function validate(f: FormState) {
+    const e: Partial<Record<keyof FormState, string>> = {};
+    if (!f.nom.trim()) e.nom = "Merci d'indiquer votre nom.";
+    if (!f.club.trim()) e.club = "Merci d'indiquer le nom de votre club.";
+    if (!f.email.trim()) e.email = "Merci d'indiquer votre email.";
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim()))
+      e.email = "Email invalide.";
+    if (!f.telephone.trim())
+      e.telephone = "Merci d'indiquer votre numéro de téléphone.";
+    else if (
+      f.telephone.replace(/\D/g, "").length < 6 ||
+      !/^[+()\d\s.\-]+$/.test(f.telephone.trim())
+    )
+      e.telephone = "Numéro de téléphone invalide.";
+    return e;
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Le formulaire refuse l'envoi tant qu'un champ requis manque
+    // (dont le téléphone, désormais obligatoire).
+    const found = validate(form);
+    if (Object.keys(found).length > 0) {
+      setErrors(found);
+      return;
+    }
+    setErrors({});
     setSubmitting(true);
 
     // ────────────────────────────────────────────────────────────
@@ -128,6 +162,7 @@ export function Contact() {
                     onChange={update("nom")}
                     required
                     autoComplete="name"
+                    error={errors.nom}
                   />
                   <Field
                     id="club"
@@ -136,6 +171,7 @@ export function Contact() {
                     onChange={update("club")}
                     required
                     autoComplete="organization"
+                    error={errors.club}
                   />
                   <Field
                     id="email"
@@ -145,14 +181,18 @@ export function Contact() {
                     onChange={update("email")}
                     required
                     autoComplete="email"
+                    error={errors.email}
                   />
                   <Field
                     id="telephone"
                     label="Téléphone"
                     type="tel"
+                    inputMode="tel"
                     value={form.telephone}
                     onChange={update("telephone")}
+                    required
                     autoComplete="tel"
+                    error={errors.telephone}
                   />
                 </div>
 
@@ -204,10 +244,12 @@ export function Contact() {
 function Field({
   id,
   label,
+  error,
   ...props
 }: {
   id: string;
   label: string;
+  error?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
@@ -221,9 +263,24 @@ function Field({
       <input
         id={id}
         name={id}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
         {...props}
-        className="w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-ink-900 outline-none transition-all placeholder:text-smoke/60 focus:border-gold focus:ring-2 focus:ring-gold/20"
+        className={cn(
+          "w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-ink-900 outline-none transition-all placeholder:text-smoke/60 focus:ring-2",
+          error
+            ? "border-red-400 focus:border-red-400 focus:ring-red-400/25"
+            : "border-line focus:border-gold focus:ring-gold/20"
+        )}
       />
+      {error && (
+        <p
+          id={`${id}-error`}
+          className="mt-1.5 text-[12px] font-medium text-red-600"
+        >
+          {error}
+        </p>
+      )}
     </div>
   );
 }
