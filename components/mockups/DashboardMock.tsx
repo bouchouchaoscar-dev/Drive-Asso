@@ -29,9 +29,9 @@ const kpis = [
 ];
 
 const rows = [
-  { name: "Adhérent A.", formule: "Boxe Française", statut: "payé" },
-  { name: "Adhérent B.", formule: "Savate & Prépa", statut: "fractionné" },
-  { name: "Adhérent C.", formule: "Boxe Française", statut: "espèces" },
+  { name: "Adhérent A.", formule: "Formule Adulte", statut: "payé" },
+  { name: "Adhérent B.", formule: "Formule Enfant", statut: "fractionné" },
+  { name: "Adhérent C.", formule: "Formule Adulte", statut: "espèces" },
 ];
 
 const statutStyle: Record<string, string> = {
@@ -160,10 +160,10 @@ export function DashboardMock() {
               </div>
               <ul className="space-y-1.5 text-[10px] text-smoke">
                 <li className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-ink-900" /> Boxe
+                  <span className="h-2 w-2 rounded-full bg-ink-900" /> Adultes
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-gold" /> Savate
+                  <span className="h-2 w-2 rounded-full bg-gold" /> Enfants
                 </li>
                 <li className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-line" /> Autres
