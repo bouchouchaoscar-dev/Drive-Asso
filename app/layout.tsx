@@ -47,7 +47,15 @@ export const metadata: Metadata = {
   creator: "DriveAsso",
   publisher: "DriveAsso",
   alternates: { canonical: "/" },
-  // Le favicon est fourni via la convention Next app/icon.png (généré automatiquement).
+  // Favicon = icône seule DriveAsso (maillons), carrée et centrée.
+  // app/icon.png (512) et app/apple-icon.png (180) sont auto-générés par Next ;
+  // on ajoute ici les petites tailles nettes 16/32 pour l'onglet.
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
