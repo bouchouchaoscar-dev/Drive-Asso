@@ -38,10 +38,10 @@ export function Hero() {
               className="animate-rise mt-6 text-lg leading-relaxed text-smoke"
               style={{ animationDelay: "0.16s" }}
             >
-              La gestion associative nouvelle génération : un site premium aux
-              couleurs de votre club, où vous pilotez tout depuis un seul espace.
-              Vos adhérents, eux, s'inscrivent et paient seuls en quelques
-              minutes.
+              La gestion associative nouvelle génération pour votre club ou
+              association sportive : un site premium aux couleurs de votre club,
+              où vous pilotez tout depuis un seul espace. Vos adhérents, eux,
+              s'inscrivent en ligne et paient seuls en quelques minutes.
             </p>
 
             <div

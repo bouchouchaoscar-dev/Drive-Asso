@@ -19,9 +19,9 @@ const inter = Inter({
 });
 
 const SITE_URL = "https://www.drive-asso.fr";
-const TITLE = "DriveAsso, la gestion associative nouvelle génération";
+const TITLE = "DriveAsso — Logiciel de gestion pour club et association sportive";
 const DESCRIPTION =
-  "DriveAsso conçoit pour les associations et clubs sportifs un site internet sur-mesure à leurs couleurs, qui sert aussi de plateforme de gestion complète : inscription en ligne des adhérents, paiements, espace administrateur et mailing intégré.";
+  "Site sur-mesure et plateforme tout-en-un pour votre club : inscription en ligne des adhérents, paiement des cotisations, gestion et mailing.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -86,8 +86,8 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-/* Données structurées — JSON-LD Organization */
-const jsonLd = {
+/* Données structurées — JSON-LD (Organization + WebSite + Service) */
+const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "DriveAsso",
@@ -104,6 +104,29 @@ const jsonLd = {
     "Sites internet pour associations",
   ],
 };
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "DriveAsso",
+  url: SITE_URL,
+  inLanguage: "fr-FR",
+  publisher: { "@type": "Organization", name: "DriveAsso", url: SITE_URL },
+};
+
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "DriveAsso",
+  serviceType:
+    "Logiciel de gestion et site pour club et association sportive",
+  description: DESCRIPTION,
+  provider: { "@type": "Organization", name: "DriveAsso", url: SITE_URL },
+  areaServed: { "@type": "Country", name: "France" },
+  url: SITE_URL,
+};
+
+const jsonLd = [organizationLd, websiteLd, serviceLd];
 
 export default function RootLayout({
   children,

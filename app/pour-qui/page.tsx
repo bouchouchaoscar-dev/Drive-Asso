@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { RevealInit } from "@/components/ui/RevealInit";
@@ -14,9 +15,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Pour qui ? Logiciel pour clubs et associations sportives",
+  title: "Logiciel de gestion pour clubs et associations sportives",
   description:
-    "DriveAsso est le logiciel de gestion pensé pour les clubs sportifs et les associations loi 1901 : inscription en ligne des adhérents, paiements, suivi des dossiers et communication automatisée. Fini la paperasse.",
+    "Le logiciel de gestion pensé pour les clubs sportifs et associations loi 1901 : inscription en ligne des adhérents, paiement des cotisations et communication automatisée.",
   keywords: [
     "logiciel club sportif",
     "gestion association sportive",
@@ -27,11 +28,31 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/pour-qui" },
   openGraph: {
-    title: "Pour qui ? Logiciel pour clubs et associations sportives",
+    title: "Logiciel de gestion pour clubs et associations sportives",
     description:
-      "La solution de gestion pensée pour les clubs sportifs et associations : inscription en ligne, paiements, dossiers et communication automatisée.",
+      "La solution de gestion pensée pour les clubs sportifs et associations : inscription en ligne des adhérents, paiement des cotisations et communication automatisée.",
     url: "https://www.drive-asso.fr/pour-qui",
   },
+};
+
+/* Fil d'Ariane — JSON-LD BreadcrumbList (Accueil › Pour qui) */
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: "https://www.drive-asso.fr",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Pour qui ?",
+      item: "https://www.drive-asso.fr/pour-qui",
+    },
+  ],
 };
 
 const profils = [
@@ -74,6 +95,10 @@ const benefices = [
 export default function PourQuiPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       <Header />
       <main className="flex-1">
         {/* Hero de page */}
@@ -198,6 +223,12 @@ export default function PourQuiPage() {
               collectent des dons. Chaque déploiement se personnalise selon les
               besoins de votre structure. Une question ? Parlons-en.
             </p>
+            <Link
+              href="/#solution"
+              className="link-underline mt-5 inline-flex font-display text-sm font-semibold text-ink-800"
+            >
+              Découvrir la solution complète de gestion de club
+            </Link>
           </div>
         </Section>
 

@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { Globe, LayoutDashboard, UserPlus, Link2 } from "lucide-react";
+import { Globe, LayoutDashboard, UserPlus, Link2, ArrowRight } from "lucide-react";
 
 const piliers = [
   {
@@ -10,7 +11,7 @@ const piliers = [
   {
     icon: LayoutDashboard,
     title: "L'espace administrateur",
-    text: "Le poste de pilotage du club : adhérents, paiements, documents, mailing. Tout y est centralisé.",
+    text: "Le poste de pilotage du club : gestion des adhérents, paiements, documents, mailing. Tout y est centralisé.",
   },
   {
     icon: UserPlus,
@@ -32,7 +33,7 @@ export function Concept() {
             <span className="text-ink-700">Une plateforme derrière.</span>
           </>
         }
-        intro="Avec DriveAsso, votre vitrine publique est aussi l'espace où tout se gère et où vos adhérents s'inscrivent. Un seul système, cohérent et fluide dès le premier clic."
+        intro="Bien plus qu'un logiciel de gestion : votre vitrine publique est aussi la plateforme sur-mesure où tout se gère et où vos adhérents s'inscrivent en ligne. Un seul système, cohérent et fluide dès le premier clic."
       />
 
       {/* Indicateur d'unité : une seule adresse */}
@@ -67,6 +68,17 @@ export function Concept() {
             </p>
           </div>
         ))}
+      </div>
+
+      {/* Lien contextuel vers la page cible (maillage interne) */}
+      <div data-reveal className="mt-10 text-center">
+        <Link
+          href="/pour-qui"
+          className="link-underline inline-flex items-center gap-1.5 font-display text-sm font-semibold text-ink-800"
+        >
+          Un outil pensé pour les clubs et associations sportives
+          <ArrowRight size={16} className="text-gold-600" />
+        </Link>
       </div>
     </Section>
   );

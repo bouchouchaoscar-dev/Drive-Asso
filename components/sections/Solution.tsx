@@ -120,7 +120,7 @@ export function Solution() {
             Trois piliers. <span className="text-ink-700">Un seul système.</span>
           </>
         }
-        intro="De la gestion quotidienne à la croissance, DriveAsso accompagne vos adhérents du premier contact à la réinscription. Un seul outil, rien à brancher en plus."
+        intro="De la gestion du club au développement, DriveAsso accompagne vos adhérents de l'inscription en ligne à la réinscription. Un seul outil, rien à brancher en plus."
       />
 
       {/* Accroche forte qui prépare le déballage des 3 actes */}
@@ -129,7 +129,7 @@ export function Solution() {
         className="mx-auto mt-10 max-w-2xl text-center font-display text-xl font-bold text-ink-900 sm:text-2xl"
       >
         Bien plus qu'un site.{" "}
-        <span className="text-ink-700">Toute votre gestion.</span>
+        <span className="text-ink-700">Toute la gestion de votre club.</span>
       </p>
 
       <div className="mt-16 space-y-24 lg:space-y-32">

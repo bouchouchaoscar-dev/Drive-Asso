@@ -17,6 +17,7 @@ export const NAV_LINKS = [
   { label: "La solution", href: "/#solution" },
   { label: "Pour qui ?", href: "/pour-qui" },
   { label: "Réalisations", href: "/#realisations" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/#contact" },
 ] as const;
 
@@ -108,7 +109,7 @@ export const ACTES: Acte[] = [
       },
       {
         title: "Paiement en autonomie",
-        text: "Carte, Apple Pay, Google Pay ou espèces. Paiement en 1 fois ou fractionné 2, 3, 4×.",
+        text: "Paiement en ligne des cotisations et adhésions : carte, Apple Pay, Google Pay ou espèces. En 1 fois ou fractionné 2, 3, 4×.",
       },
       {
         title: "Prélèvements",
