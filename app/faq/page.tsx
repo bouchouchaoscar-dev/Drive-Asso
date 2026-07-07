@@ -32,11 +32,10 @@ export const metadata: Metadata = {
 };
 
 /* ---- Les 17 questions, en 4 blocs thématiques ---- */
-type FaqBlock = { eyebrow: string; title: string; items: FaqItem[] };
+type FaqBlock = { title: string; items: FaqItem[] };
 
 const FAQ_BLOCKS: FaqBlock[] = [
   {
-    eyebrow: "Bloc 1",
     title: "Comprendre DriveAsso",
     items: [
       {
@@ -44,12 +43,12 @@ const FAQ_BLOCKS: FaqBlock[] = [
         a: "DriveAsso, c'est la gestion associative nouvelle génération : un site vitrine sur-mesure aux couleurs de votre club, doublé d'une plateforme complète où tout se pilote. Vos adhérents s'inscrivent et paient en ligne en autonomie, et vous gérez l'ensemble depuis un seul espace administrateur. Bien plus qu'un logiciel de gestion : une plateforme qui vous appartient.",
       },
       {
-        q: "En quoi DriveAsso est-il différent d'un logiciel de gestion classique comme HelloAsso ou AssoConnect ?",
-        a: "Ces solutions logent votre club sur une plateforme mutualisée, partagée avec des milliers d'autres structures. DriveAsso prend le chemin inverse : nous concevons votre propre site sur-mesure, à votre nom de domaine et à vos couleurs, qui devient votre propriété. Vous n'êtes pas une page parmi d'autres, vous avez une plateforme rien qu'à vous, pensée pour vos formules et vos règles.",
+        q: "En quoi DriveAsso est-il différent d'un logiciel de gestion classique ou d'une plateforme mutualisée ?",
+        a: "Une plateforme mutualisée loge votre club sur un outil partagé avec des milliers d'autres structures : vous n'êtes qu'une page parmi d'autres, sur la plateforme de quelqu'un d'autre. DriveAsso prend le chemin inverse : nous concevons votre propre site sur-mesure, à votre nom de domaine et à vos couleurs, qui devient votre propriété. Vous avez une plateforme rien qu'à vous, pensée pour vos formules et vos règles.",
       },
       {
         q: "À qui s'adresse DriveAsso ?",
-        a: "DriveAsso est pensé pour les clubs et associations sportives — boxe, judo, football, tennis, danse, arts martiaux… — et plus largement pour les associations loi 1901 qui gèrent des adhérents, des inscriptions et des paiements chaque saison. Que vous ayez quelques dizaines ou plusieurs centaines de membres, la solution s'adapte à votre structure.",
+        a: "DriveAsso est pensé pour les clubs et associations sportives (boxe, judo, football, tennis, danse, arts martiaux…) et plus largement pour les associations loi 1901 qui gèrent des adhérents, des inscriptions et des paiements chaque saison. Que vous ayez quelques dizaines ou plusieurs centaines de membres, la solution s'adapte à votre structure.",
       },
       {
         q: "DriveAsso, est-ce un site internet ou un logiciel de gestion ?",
@@ -58,16 +57,15 @@ const FAQ_BLOCKS: FaqBlock[] = [
     ],
   },
   {
-    eyebrow: "Bloc 2",
     title: "Fonctionnement",
     items: [
       {
         q: "Comment fonctionne l'inscription en ligne des adhérents ?",
-        a: "Vos adhérents s'inscrivent en quelques minutes depuis leur téléphone, via un parcours guidé étape par étape. Ils choisissent leur formule, remplissent leurs informations, déposent leurs documents et règlent leur cotisation en ligne. Tout se déroule en autonomie totale, sans aucune intervention de votre part.",
+        a: "Vos adhérents s'inscrivent en quelques minutes depuis un ordinateur ou un smartphone, via un parcours guidé étape par étape. Ils choisissent leur formule, remplissent leurs informations, déposent leurs documents et règlent leur cotisation en ligne. Tout se déroule en autonomie totale, sans aucune intervention de votre part.",
       },
       {
         q: "Peut-on gérer les paiements, cotisations et adhésions en ligne ?",
-        a: "Oui. Le paiement en ligne des cotisations et adhésions se fait par carte, Apple Pay, Google Pay — ou en espèces si vous le souhaitez. Vos adhérents peuvent régler en une fois ou de façon fractionnée en 2, 3 ou 4×, et les échéances sont prélevées automatiquement aux dates prévues. Les tarifs (jeunes/adultes, réductions familiales, options) se calculent tout seuls au moment du paiement.",
+        a: "Oui. Le paiement en ligne des cotisations et adhésions se fait par carte, Apple Pay, Google Pay ou en espèces si vous le souhaitez. Vos adhérents peuvent régler en une fois ou de façon fractionnée en 2, 3 ou 4×, et les échéances sont prélevées automatiquement aux dates prévues. Les tarifs (jeunes/adultes, réductions familiales, options) se calculent tout seuls au moment du paiement.",
       },
       {
         q: "Comment sont gérés les documents comme le certificat médical ou l'autorisation parentale ?",
@@ -92,16 +90,11 @@ const FAQ_BLOCKS: FaqBlock[] = [
     ],
   },
   {
-    eyebrow: "Bloc 3",
     title: "Budget & engagement",
     items: [
       {
         q: "Combien coûte DriveAsso ?",
-        a: "DriveAsso se règle en deux temps : un investissement unique au départ pour la conception de votre site sur-mesure, qui devient la propriété du club, puis un abonnement mensuel qui fait vivre la plateforme toute l'année (hébergement, paiements, base de données, mises à jour, sécurité et accompagnement). Le budget s'adapte à la taille de votre structure. Le plus simple : demandez une démo gratuite pour un devis personnalisé.",
-      },
-      {
-        q: "Y a-t-il un engagement de durée ?",
-        a: "Notre objectif est que vous restiez parce que la solution vous fait gagner du temps, pas parce qu'un contrat vous y oblige. Les modalités précises vous sont présentées lors de la démo, en toute transparence et adaptées à votre situation.",
+        a: "DriveAsso se règle en deux temps : un investissement unique au départ pour la conception de votre site sur-mesure, qui devient la propriété du club, puis un abonnement mensuel qui fait vivre la plateforme toute l'année (hébergement, paiements, base de données, outil de mailing, mises à jour, sécurité et accompagnement). Le budget s'adapte à la taille de votre structure. Le plus simple : demandez une démo gratuite pour un devis personnalisé.",
       },
       {
         q: "Le site m'appartient-il vraiment ?",
@@ -110,7 +103,6 @@ const FAQ_BLOCKS: FaqBlock[] = [
     ],
   },
   {
-    eyebrow: "Bloc 4",
     title: "Se lancer",
     items: [
       {
@@ -200,12 +192,8 @@ export default function FaqPage() {
         {FAQ_BLOCKS.map((block, i) => (
           <Section key={block.title} tone={TONES[i % 2]}>
             <div className="mx-auto max-w-3xl">
-              <div data-reveal className="eyebrow mb-3">
-                {block.eyebrow}
-              </div>
               <h2
                 data-reveal
-                data-reveal-delay="1"
                 className="text-2xl font-extrabold leading-tight text-ink-900 sm:text-3xl"
               >
                 {block.title}

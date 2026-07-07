@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 const SITE_URL = "https://www.drive-asso.fr";
-const TITLE = "DriveAsso — Logiciel de gestion pour club et association sportive";
+const TITLE = "DriveAsso, logiciel de gestion pour club et association sportive";
 const DESCRIPTION =
   "Site sur-mesure et plateforme tout-en-un pour votre club : inscription en ligne des adhérents, paiement des cotisations, gestion et mailing.";
 
