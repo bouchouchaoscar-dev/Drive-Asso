@@ -40,6 +40,8 @@ export const metadata: Metadata = {
     "logiciel gestion adhérents",
     "site web club sportif",
     "plateforme gestion association",
+    "association loi 1901",
+    "logiciel association loi 1901",
   ],
   authors: [{ name: "DriveAsso" }],
   creator: "DriveAsso",

@@ -27,7 +27,8 @@ export function Footer() {
             />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-smoke">
               La gestion associative nouvelle génération. Un site sur-mesure et
-              une plateforme tout-en-un pour les associations et clubs sportifs.
+              une plateforme tout-en-un pour les clubs, associations sportives
+              et associations loi 1901.
             </p>
           </div>
 

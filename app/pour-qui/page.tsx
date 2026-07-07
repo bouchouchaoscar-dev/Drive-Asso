@@ -16,7 +16,15 @@ import {
 export const metadata: Metadata = {
   title: "Pour qui ? Logiciel pour clubs et associations sportives",
   description:
-    "DriveAsso est le logiciel de gestion pensé pour les clubs sportifs et associations : inscription en ligne des adhérents, paiements, suivi des dossiers et communication automatisée. Fini la paperasse.",
+    "DriveAsso est le logiciel de gestion pensé pour les clubs sportifs et les associations loi 1901 : inscription en ligne des adhérents, paiements, suivi des dossiers et communication automatisée. Fini la paperasse.",
+  keywords: [
+    "logiciel club sportif",
+    "gestion association sportive",
+    "logiciel association loi 1901",
+    "association loi 1901",
+    "inscription en ligne club",
+    "logiciel gestion adhérents sport",
+  ],
   alternates: { canonical: "/pour-qui" },
   openGraph: {
     title: "Pour qui ? Logiciel pour clubs et associations sportives",
@@ -117,7 +125,7 @@ export default function PourQuiPage() {
                 <span className="text-ink-700">reconnaître.</span>
               </>
             }
-            intro="DriveAsso s'adresse à toutes les structures sportives qui gèrent des adhérents, des inscriptions et des paiements chaque saison."
+            intro="DriveAsso s'adresse à toutes les structures sportives (clubs, associations sportives, associations loi 1901) qui gèrent des adhérents, des inscriptions et des paiements chaque saison."
           />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {profils.map((p, i) => (
