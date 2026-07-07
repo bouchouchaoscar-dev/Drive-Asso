@@ -3,6 +3,7 @@
  * Reprend la palette réelle du club (blanc + orange #FF6B00 + noir),
  * style premium épuré. 100 % CSS, données fictives. Aperçu illustratif.
  */
+import Image from "next/image";
 
 const PB = {
   orange: "#ff6b00",
@@ -24,12 +25,13 @@ export function ClubSiteMock() {
         style={{ borderBottom: `1px solid ${PB.line}` }}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="grid h-6 w-6 place-items-center rounded-md text-[10px] font-extrabold text-white"
-            style={{ background: PB.orange }}
-          >
-            PB
-          </span>
+          <Image
+            src="/images/logo-punching-boxe.png"
+            alt="Logo Punching Boxe"
+            width={40}
+            height={40}
+            className="h-7 w-7 shrink-0 object-contain"
+          />
           <span className="font-display text-sm font-extrabold tracking-tight">
             PUNCHING BOXE
           </span>
