@@ -21,7 +21,7 @@ export function EspaceAdherentMock() {
           <div className="font-display text-sm font-bold text-ink-900">
             Mon inscription
           </div>
-          <div className="text-[10px] text-smoke">Saison 2025 / 2026</div>
+          <div className="text-[10px] text-smoke">Saison 2026 / 2027</div>
         </div>
         <div className="flex items-center gap-2">
           <span className="relative block h-7 w-7 overflow-hidden rounded-full ring-1 ring-black/5">

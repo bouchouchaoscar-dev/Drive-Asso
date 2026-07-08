@@ -53,7 +53,7 @@ export function FicheAdherentMock() {
               <span className="rounded-full bg-gold-soft px-2 py-0.5 font-semibold text-ink-800">
                 Adulte
               </span>
-              <span>Formule Adulte · Saison 2025/2026</span>
+              <span>Formule Adulte · Saison 2026/2027</span>
             </div>
           </div>
         </div>

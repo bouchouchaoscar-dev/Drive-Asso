@@ -68,7 +68,7 @@ export function DashboardMock() {
             <div className="font-display text-sm font-bold text-ink-900">
               Tableau de bord
             </div>
-            <div className="text-[11px] text-smoke">Saison 2025 – 2026</div>
+            <div className="text-[11px] text-smoke">Saison 2026 – 2027</div>
           </div>
           <div className="hidden items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] text-smoke ring-1 ring-line sm:flex">
             Saison en cours

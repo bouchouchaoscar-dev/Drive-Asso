@@ -49,7 +49,7 @@ export function ClubSiteMock() {
           className="text-[10px] font-bold uppercase tracking-[0.18em]"
           style={{ color: PB.orange }}
         >
-          Saison 2025 / 2026
+          Saison 2026 / 2027
         </div>
         <div className="mt-1 font-display text-xl font-extrabold leading-tight sm:text-2xl">
           Inscris-toi en ligne
@@ -92,7 +92,7 @@ export function ClubSiteMock() {
           <div className="leading-tight">
             <div className="text-[12px] font-bold">Boxe adulte</div>
             <div className="text-[10px]" style={{ color: PB.smoke }}>
-              Saison 2025 / 2026
+              Saison 2026 / 2027
             </div>
           </div>
           <span
