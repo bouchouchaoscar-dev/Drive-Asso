@@ -47,15 +47,22 @@ export const metadata: Metadata = {
   creator: "DriveAsso",
   publisher: "DriveAsso",
   alternates: { canonical: "/" },
-  // Favicon = icône seule DriveAsso (maillons), carrée et centrée.
-  // app/icon.png (512) et app/apple-icon.png (180) sont auto-générés par Next ;
-  // on ajoute ici les petites tailles nettes 16/32 pour l'onglet.
+  // Icônes DriveAsso (maillons) pour tous les usages :
+  // - onglet navigateur : favicon 16/32 (+ 192 pour hi-DPI)
+  // - favori / raccourci écran d'accueil iOS : apple-touch-icon 180 (fond opaque)
+  // - installation / raccourci Android & desktop : manifest (icônes 192/512)
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: [{ url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
     locale: "fr_FR",

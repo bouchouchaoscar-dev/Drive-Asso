@@ -18,9 +18,9 @@ export function CercleVertueux() {
             Un cercle vertueux
           </div>
           <p className="text-lg leading-relaxed text-ink-700">
-            Un beau site donne envie. Un parcours fluide transforme cette envie
-            en inscriptions. Et le développement attire toujours plus
-            d'adhérents.
+            Un site professionnel au design soigné donne envie. Un parcours
+            fluide transforme cette envie en inscriptions. Et le développement
+            attire toujours plus d'adhérents.
           </p>
           <p className="mt-5 font-display text-lg font-semibold text-ink-900 sm:text-xl">
             Un cercle vertueux complet pour gérer, automatiser et développer
