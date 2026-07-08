@@ -4,8 +4,8 @@ import { Container } from "@/components/ui/Container";
 import { NAV_LINKS, SITE } from "@/lib/content";
 
 const legalLinks = [
-  { label: "Mentions légales", href: "#" },
-  { label: "Confidentialité", href: "#" },
+  { label: "Mentions légales", href: "/mentions-legales" },
+  { label: "Confidentialité", href: "/confidentialite" },
 ];
 
 export function Footer() {
@@ -84,13 +84,13 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-6">
             {legalLinks.map((l) => (
-              <a
+              <Link
                 key={l.label}
                 href={l.href}
                 className="text-xs text-smoke transition-colors hover:text-ink-900"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
             <span className="text-xs text-smoke">© {new Date().getFullYear()}</span>
           </div>
