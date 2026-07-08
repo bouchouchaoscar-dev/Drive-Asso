@@ -65,11 +65,19 @@ export async function sendDemandeDemo(d: {
     </div>
   `);
 
-  return client.emails.send({
+  const { data, error } = await client.emails.send({
     from: FROM,
     to: CONTACT_TO,
     replyTo: d.email,
     subject: `Nouvelle demande de démo - ${d.club}`,
     html,
   });
+
+  // Resend ne lève pas d'exception en cas de refus (domaine/from invalide,
+  // quota…) : il renvoie un champ `error`. On le transforme en exception
+  // pour que la route renvoie un vrai 500 (et non un faux succès).
+  if (error) {
+    throw new Error(`Resend: ${error.message || "envoi refusé"}`);
+  }
+  return { id: data?.id };
 }
