@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-paper pt-32 sm:pt-40 section-y-b"
+      className="relative overflow-hidden bg-paper pt-22 sm:pt-40 section-y-b"
     >
       <Container className="relative">
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
