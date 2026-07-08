@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, ArrowRight, Mail } from "lucide-react";
@@ -30,6 +30,14 @@ export function Contact() {
   >({});
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Anti-bot : honeypot (champ invisible) + time-trap (durée de remplissage).
+  const [website, setWebsite] = useState("");
+  const formLoadedAt = useRef<number>(0);
+  useEffect(() => {
+    formLoadedAt.current = Date.now();
+  }, []);
 
   const update =
     (field: keyof FormState) =>
@@ -59,6 +67,7 @@ export function Contact() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitError(null);
 
     // Le formulaire refuse l'envoi tant qu'un champ requis manque
     // (dont le téléphone, désormais obligatoire).
@@ -70,22 +79,27 @@ export function Contact() {
     setErrors({});
     setSubmitting(true);
 
-    // ────────────────────────────────────────────────────────────
-    // TODO : brancher ici l'envoi réel de la demande de démo.
-    // Recommandation : un Route Handler POST /api/contact qui utilise
-    // Resend (cf. le produit DriveAsso) pour envoyer le mail à contact@drive-asso.fr.
-    //   await fetch("/api/contact", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(form),
-    //   });
-    // Pour l'instant : pas d'envoi réel, on simule la confirmation.
-    // ────────────────────────────────────────────────────────────
-
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitting(false);
-    setSent(true);
-    setForm(empty);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          website, // honeypot
+          formLoadedAt: formLoadedAt.current, // time-trap
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error();
+      setSubmitting(false);
+      setSent(true);
+      setForm(empty);
+    } catch {
+      setSubmitting(false);
+      setSubmitError(
+        `L'envoi a échoué. Réessayez dans un instant, ou écrivez-nous directement à ${SITE.email}.`
+      );
+    }
   }
 
   return (
@@ -134,11 +148,11 @@ export function Contact() {
                   <CheckCircle2 size={32} />
                 </span>
                 <h3 className="mt-5 text-xl font-bold text-ink-900">
-                  Demande bien reçue !
+                  Demande envoyée !
                 </h3>
                 <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-smoke">
-                  Merci pour votre message. Nous revenons vers vous très vite
-                  pour organiser votre démo personnalisée.
+                  Votre demande a bien été envoyée, nous vous recontactons
+                  rapidement pour organiser votre démo personnalisée.
                 </p>
                 <button
                   type="button"
@@ -154,6 +168,17 @@ export function Contact() {
                 className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8"
                 noValidate
               >
+                {/* Honeypot anti-bot : invisible pour l'humain, ignoré au clavier. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field
                     id="nom"
@@ -228,6 +253,15 @@ export function Contact() {
                     </>
                   )}
                 </Button>
+
+                {submitError && (
+                  <p
+                    role="alert"
+                    className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-[13px] font-medium text-red-700"
+                  >
+                    {submitError}
+                  </p>
+                )}
 
                 <p className="mt-4 text-center text-xs text-smoke">
                   Réponse rapide. Aucune carte bancaire, aucun engagement.
