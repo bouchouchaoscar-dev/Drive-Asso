@@ -70,7 +70,7 @@ export function Comparatif() {
               alt="DriveAsso"
               width={260}
               height={68}
-              className="h-auto w-36 max-w-full sm:w-48"
+              className="h-auto w-32 max-w-full sm:w-40"
             />
           </div>
           <div className="flex items-center justify-center border-l border-line px-4 py-4 text-center sm:px-6">
