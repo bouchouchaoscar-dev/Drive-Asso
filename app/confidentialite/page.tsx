@@ -65,9 +65,11 @@ export default function ConfidentialitePage() {
           <li>le contenu de votre message (facultatif).</li>
         </ul>
         <p>
-          Aucune donnée n&apos;est collectée à votre insu et le site n&apos;a
-          recours à aucun outil de suivi ou de profilage (voir la section{" "}
-          <em>Cookies</em> ci-dessous).
+          Aucune donnée n&apos;est collectée à votre insu. Le site utilise un
+          outil de mesure d&apos;audience (Google Analytics) qui n&apos;est
+          activé <strong>qu&apos;après votre consentement</strong> et ne procède
+          à aucun profilage publicitaire (voir la section <em>Cookies</em>
+          ci-dessous).
         </p>
       </LegalSection>
 
@@ -126,6 +128,10 @@ export default function ConfidentialitePage() {
             <strong>Vercel</strong> (Vercel Inc.) : hébergement du site et
             exécution du formulaire.
           </li>
+          <li>
+            <strong>Google Analytics</strong> (Google Ireland Limited) : mesure
+            d&apos;audience anonymisée, <strong>uniquement si vous y consentez</strong>.
+          </li>
         </ul>
         <p>
           Ces prestataires étant situés aux États-Unis, un transfert de données
@@ -176,18 +182,35 @@ export default function ConfidentialitePage() {
 
       <LegalSection title="Cookies">
         <p>
-          Le site DriveAsso <strong>n&apos;utilise aucun cookie de suivi</strong>{" "}
-          (pas de Google Analytics, pas de pixel publicitaire, pas d&apos;outil
-          de mesure d&apos;audience tiers) et ne procède à aucun profilage.
+          Le site utilise <strong>Google Analytics 4</strong> à des fins de{" "}
+          <strong>mesure d&apos;audience</strong> : comprendre le nombre de
+          visiteurs, les pages consultées et l&apos;usage général du site afin de
+          l&apos;améliorer. Cet outil dépose des cookies (notamment{" "}
+          <code>_ga</code> et <code>_ga_*</code>) et repose sur votre adresse IP
+          de façon anonymisée. Aucune donnée n&apos;est utilisée à des fins
+          publicitaires ou de profilage.
         </p>
         <p>
-          Les polices de caractères sont hébergées directement sur notre domaine
-          (aucun appel à un service tiers), et le formulaire de contact ne
-          dépose pas de cookie. Aucun cookie non essentiel n&apos;étant utilisé,
-          aucun bandeau de consentement n&apos;est nécessaire. Si cette
-          situation venait à évoluer (par exemple l&apos;ajout d&apos;un outil de
-          mesure d&apos;audience), cette politique serait mise à jour et votre
-          consentement serait recueilli au préalable.
+          <strong>Consentement préalable</strong> : ces cookies ne sont déposés
+          et Google Analytics n&apos;est chargé{" "}
+          <strong>qu&apos;après votre accord explicite</strong> via le bandeau de
+          consentement affiché à votre première visite. Tant que vous
+          n&apos;avez pas accepté, ou si vous refusez, <strong>aucun cookie de
+          mesure d&apos;audience n&apos;est déposé</strong> et l&apos;outil
+          n&apos;est pas activé. Les cookies de mesure sont conservés au maximum{" "}
+          <strong>13 mois</strong>, puis votre consentement vous est redemandé.
+        </p>
+        <p>
+          <strong>Retirer ou modifier votre choix</strong> : vous pouvez à tout
+          moment accepter, refuser ou changer d&apos;avis via le lien{" "}
+          <em>« Gérer les cookies »</em> présent en bas de chaque page. Le refus
+          n&apos;altère en rien l&apos;accès au site ni ses fonctionnalités.
+        </p>
+        <p>
+          Les cookies strictement nécessaires au fonctionnement du site, qui ne
+          servent à aucun suivi, ne requièrent pas de consentement. Les polices
+          de caractères sont par ailleurs hébergées directement sur notre
+          domaine (aucun appel à un service tiers).
         </p>
       </LegalSection>
 

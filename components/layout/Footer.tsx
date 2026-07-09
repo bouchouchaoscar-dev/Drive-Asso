@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { CookieSettingsLink } from "@/components/analytics/CookieSettingsLink";
 import { NAV_LINKS, SITE } from "@/lib/content";
 
 const legalLinks = [
@@ -92,6 +93,7 @@ export function Footer() {
                 {l.label}
               </Link>
             ))}
+            <CookieSettingsLink className="text-xs text-smoke transition-colors hover:text-ink-900" />
             <span className="text-xs text-smoke">© {new Date().getFullYear()}</span>
           </div>
         </div>

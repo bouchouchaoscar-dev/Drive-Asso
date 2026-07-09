@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
 
 /* Montserrat → titres, navigation, accents (SemiBold/Bold/ExtraBold) */
 const montserrat = Montserrat({
@@ -154,6 +155,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
