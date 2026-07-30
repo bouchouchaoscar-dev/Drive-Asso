@@ -53,11 +53,17 @@ export function SurMesure() {
             data-reveal-delay="1"
             className="rounded-2xl border border-line bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
           >
-            <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-gold text-ink-900">
-              <Sparkles size={22} />
-            </span>
-            <h3 className="text-xl font-bold text-ink-900">La création</h3>
-            <p className="mt-1.5 text-sm text-smoke">Une fois, au lancement</p>
+            <div className="flex items-center gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gold text-ink-900">
+                <Sparkles size={22} />
+              </span>
+              <div>
+                <h3 className="text-xl font-bold leading-snug text-ink-900">
+                  La création
+                </h3>
+                <p className="mt-0.5 text-sm text-smoke">Une fois, au lancement</p>
+              </div>
+            </div>
             <ul className="mt-5 space-y-3">
               {creation.map((c) => (
                 <li key={c} className="flex gap-2.5 text-[15px] text-ink-700">
@@ -74,13 +80,19 @@ export function SurMesure() {
             data-reveal-delay="2"
             className="rounded-2xl border border-gold/40 bg-white p-7 shadow-sm ring-1 ring-gold/15 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
           >
-            <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-ink-900 text-gold">
-              <RefreshCw size={22} />
-            </span>
-            <h3 className="text-xl font-bold text-ink-900">L'abonnement</h3>
-            <p className="mt-1.5 text-sm text-smoke">
-              Fait vivre le système toute l'année
-            </p>
+            <div className="flex items-center gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ink-900 text-gold">
+                <RefreshCw size={22} />
+              </span>
+              <div>
+                <h3 className="text-xl font-bold leading-snug text-ink-900">
+                  L'abonnement
+                </h3>
+                <p className="mt-0.5 text-sm text-smoke">
+                  Fait vivre le système toute l'année
+                </p>
+              </div>
+            </div>
             <ul className="mt-5 space-y-3">
               {abonnement.map((c) => (
                 <li key={c} className="flex gap-2.5 text-[15px] text-ink-700">

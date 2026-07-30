@@ -59,11 +59,15 @@ export function Concept() {
             data-reveal-delay={(i + 1) as 1 | 2 | 3}
             className="group rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
           >
-            <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-ink-900 text-white transition-colors group-hover:bg-gold group-hover:text-ink-900">
-              <p.icon size={22} />
-            </span>
-            <h3 className="text-lg font-bold text-ink-900">{p.title}</h3>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-smoke">
+            <div className="flex items-center gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ink-900 text-white transition-colors group-hover:bg-gold group-hover:text-ink-900">
+                <p.icon size={22} />
+              </span>
+              <h3 className="text-lg font-bold leading-snug text-ink-900">
+                {p.title}
+              </h3>
+            </div>
+            <p className="mt-4 text-[15px] leading-relaxed text-smoke">
               {p.text}
             </p>
           </div>
