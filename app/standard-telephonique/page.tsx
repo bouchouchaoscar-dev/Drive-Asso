@@ -239,11 +239,15 @@ export default function StandardTelephoniquePage() {
                 data-reveal-delay={(i + 1) as 1 | 2 | 3}
                 className="rounded-2xl border border-line bg-white p-7"
               >
-                <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-mist text-ink-700">
-                  <p.icon size={22} />
-                </span>
-                <h3 className="text-base font-bold text-ink-900">{p.title}</h3>
-                <p className="mt-2.5 text-[15px] leading-relaxed text-smoke">
+                <div className="flex items-center gap-4">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-mist text-ink-700">
+                    <p.icon size={22} />
+                  </span>
+                  <h3 className="text-base font-bold leading-snug text-ink-900">
+                    {p.title}
+                  </h3>
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-smoke">
                   {p.text}
                 </p>
               </div>
@@ -341,11 +345,15 @@ export default function StandardTelephoniquePage() {
                 data-reveal-delay={(i + 1) as 1 | 2 | 3}
                 className="rounded-2xl border border-line bg-white p-7"
               >
-                <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-gold-soft text-gold-600">
-                  <p.icon size={22} />
-                </span>
-                <h3 className="text-base font-bold text-ink-900">{p.title}</h3>
-                <p className="mt-2.5 text-[15px] leading-relaxed text-smoke">
+                <div className="flex items-center gap-4">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gold-soft text-gold-600">
+                    <p.icon size={22} />
+                  </span>
+                  <h3 className="text-base font-bold leading-snug text-ink-900">
+                    {p.title}
+                  </h3>
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-smoke">
                   {p.text}
                 </p>
               </div>
@@ -355,12 +363,12 @@ export default function StandardTelephoniquePage() {
           {/* Accent de clôture du bloc */}
           <div
             data-reveal
-            className="mx-auto mt-10 flex max-w-3xl items-start gap-4 rounded-2xl bg-ink-900 p-6 text-white sm:p-8"
+            className="mx-auto mt-10 flex max-w-3xl items-start gap-4 rounded-2xl border border-gold/60 bg-white p-6 sm:p-8"
           >
             <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold text-ink-900">
               <Sparkles size={18} />
             </span>
-            <p className="font-display text-base font-semibold leading-relaxed sm:text-lg">
+            <p className="font-display text-base font-semibold leading-relaxed text-ink-900 sm:text-lg">
               Aucun assistant générique ne peut faire ça : il faudrait qu'il soit
               relié à votre système. Le nôtre l'est nativement, parce que c'est
               nous qui l'avons construit.
@@ -446,13 +454,15 @@ export default function StandardTelephoniquePage() {
                 data-reveal-delay={(i + 1) as 1 | 2 | 3}
                 className="relative rounded-2xl border border-line bg-white p-7"
               >
-                <span className="font-display text-4xl font-extrabold text-line">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-3 text-base font-bold text-ink-900">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-[15px] leading-relaxed text-smoke">
+                <div className="flex items-center gap-3.5">
+                  <span className="font-display text-4xl font-extrabold leading-none text-line">
+                    0{i + 1}
+                  </span>
+                  <h3 className="text-base font-bold leading-snug text-ink-900">
+                    {s.title}
+                  </h3>
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-smoke">
                   {s.text}
                 </p>
               </div>
@@ -494,9 +504,38 @@ export default function StandardTelephoniquePage() {
           </div>
         </Section>
 
-        {/* ---------- BLOC 8 — CTA FINAL ---------- */}
-        <Section tone="ink">
+        {/* ---------- BLOC 8 — CTA FINAL (2 versions à comparer, TEMPORAIRE) ---------- */}
+        {/* Version A — fond blanc, sans aplat */}
+        <Section tone="paper">
+          <p className="mx-auto mb-6 text-center font-display text-[11px] font-bold uppercase tracking-[0.18em] text-smoke">
+            Version A — fond blanc
+          </p>
           <div data-reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-extrabold leading-tight text-ink-900 sm:text-4xl">
+              Offrez à votre club un accueil à la hauteur.
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-smoke">
+              Le standard téléphonique intelligent est inclus dans votre
+              plateforme DriveAsso. Parlons de votre club.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button href="/#contact" size="lg">
+                Demander une démo gratuite
+                <ArrowRight size={18} />
+              </Button>
+            </div>
+          </div>
+        </Section>
+
+        {/* Version B — aplat anthracite adouci (panneau contenu + arrondi) */}
+        <Section tone="paper-2">
+          <p className="mx-auto mb-6 text-center font-display text-[11px] font-bold uppercase tracking-[0.18em] text-smoke">
+            Version B — aplat anthracite adouci
+          </p>
+          <div
+            data-reveal
+            className="mx-auto max-w-3xl rounded-3xl bg-ink-900 px-7 py-12 text-center sm:px-10"
+          >
             <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
               Offrez à votre club un accueil à la hauteur.
             </h2>
