@@ -45,15 +45,15 @@ export const metadata: Metadata = {
 };
 
 /* Bouton « démo vocale » prévu mais NON actif pour cette version. */
-function SoonButton({ label }: { label: string }) {
+function SoonButton({ label, className }: { label: string; className?: string }) {
   return (
-    <span className="relative inline-flex">
+    <span className={`relative inline-flex ${className ?? ""}`}>
       <button
         type="button"
         disabled
         aria-disabled="true"
         title="Bientôt disponible"
-        className="inline-flex h-13 cursor-not-allowed items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 font-display text-base font-semibold text-ink-700 ring-1 ring-line select-none"
+        className="inline-flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 font-display text-base font-semibold text-ink-700 ring-1 ring-line select-none"
       >
         <Headphones size={18} className="text-gold-600" />
         {label}
@@ -175,11 +175,14 @@ export default function StandardTelephoniquePage() {
                   className="animate-rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
                   style={{ animationDelay: "0.24s" }}
                 >
-                  <Button href="/#contact" size="lg">
+                  <Button href="/#contact" size="lg" className="w-full sm:w-auto">
                     Demander une démo
                     <ArrowRight size={18} />
                   </Button>
-                  <SoonButton label="Écouter l'assistant" />
+                  <SoonButton
+                    label="Écouter l'assistant"
+                    className="w-full sm:w-auto"
+                  />
                 </div>
               </div>
 
@@ -504,42 +507,13 @@ export default function StandardTelephoniquePage() {
           </div>
         </Section>
 
-        {/* ---------- BLOC 8 — CTA FINAL (2 versions à comparer, TEMPORAIRE) ---------- */}
-        {/* Version A — fond blanc, sans aplat */}
+        {/* ---------- BLOC 8 — CTA FINAL (fond blanc, sans aplat) ---------- */}
         <Section tone="paper">
-          <p className="mx-auto mb-6 text-center font-display text-[11px] font-bold uppercase tracking-[0.18em] text-smoke">
-            Version A — fond blanc
-          </p>
           <div data-reveal className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-extrabold leading-tight text-ink-900 sm:text-4xl">
               Offrez à votre club un accueil à la hauteur.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-smoke">
-              Le standard téléphonique intelligent est inclus dans votre
-              plateforme DriveAsso. Parlons de votre club.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <Button href="/#contact" size="lg">
-                Demander une démo gratuite
-                <ArrowRight size={18} />
-              </Button>
-            </div>
-          </div>
-        </Section>
-
-        {/* Version B — aplat anthracite adouci (panneau contenu + arrondi) */}
-        <Section tone="paper-2">
-          <p className="mx-auto mb-6 text-center font-display text-[11px] font-bold uppercase tracking-[0.18em] text-smoke">
-            Version B — aplat anthracite adouci
-          </p>
-          <div
-            data-reveal
-            className="mx-auto max-w-3xl rounded-3xl bg-ink-900 px-7 py-12 text-center sm:px-10"
-          >
-            <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-              Offrez à votre club un accueil à la hauteur.
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-white/70">
               Le standard téléphonique intelligent est inclus dans votre
               plateforme DriveAsso. Parlons de votre club.
             </p>
