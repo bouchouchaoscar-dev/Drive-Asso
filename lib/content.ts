@@ -15,6 +15,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: "Accueil", href: "/#hero" },
   { label: "La solution", href: "/#solution" },
+  { label: "Standard téléphonique", href: "/standard-telephonique" },
   { label: "Pour qui ?", href: "/pour-qui" },
   { label: "Réalisations", href: "/#realisations" },
   { label: "FAQ", href: "/faq" },

@@ -56,7 +56,7 @@ export function Header() {
         </Link>
 
         {/* Navigation desktop */}
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-x-6 xl:gap-x-8 lg:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -69,28 +69,28 @@ export function Header() {
         </nav>
 
         {/* CTA desktop */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Button href="/#contact" size="md">
             Demander une démo
           </Button>
         </div>
 
-        {/* Burger mobile */}
+        {/* Burger mobile / tablette */}
         <button
           type="button"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink-900 transition-colors hover:bg-mist md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink-900 transition-colors hover:bg-mist lg:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </Container>
 
-      {/* Panneau mobile */}
+      {/* Panneau mobile / tablette */}
       <div
         className={cn(
-          "md:hidden overflow-hidden border-t border-line bg-white transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "lg:hidden overflow-hidden border-t border-line bg-white transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
         )}
       >

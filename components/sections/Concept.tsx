@@ -11,7 +11,7 @@ const piliers = [
   {
     icon: LayoutDashboard,
     title: "L'espace administrateur",
-    text: "Le poste de pilotage du club : gestion des adhérents, paiements, documents, mailing. Tout y est centralisé.",
+    text: "Le poste de pilotage du club : gestion des adhérents, paiements, documents, mailing, accueil téléphonique. Tout y est centralisé.",
   },
   {
     icon: UserPlus,

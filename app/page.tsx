@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Concept } from "@/components/sections/Concept";
 import { Preuve } from "@/components/sections/Preuve";
 import { Solution } from "@/components/sections/Solution";
+import { StandardTeaser } from "@/components/sections/StandardTeaser";
 import { Comparatif } from "@/components/sections/Comparatif";
 import { CercleVertueux } from "@/components/sections/CercleVertueux";
 import { SurMesure } from "@/components/sections/SurMesure";
@@ -18,6 +19,7 @@ export default function Home() {
         <Hero />
         <Concept />
         <Solution />
+        <StandardTeaser />
         <Comparatif />
         <CercleVertueux />
         <SurMesure />
