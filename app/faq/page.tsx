@@ -90,6 +90,47 @@ const FAQ_BLOCKS: FaqBlock[] = [
     ],
   },
   {
+    title: "Standard téléphonique",
+    items: [
+      {
+        q: "Qu'est-ce que le standard téléphonique intelligent ?",
+        a: "C'est un accueil téléphonique automatisé qui répond aux appels de votre club à votre place, 24h/24 et 7j/7. Plutôt qu'un serveur vocal à touches, il tient une vraie conversation : il comprend la demande de l'appelant, présente vos formules, cherche des disponibilités, oriente vers votre site. L'objectif est simple : que vos appelants soient toujours bien accueillis, même quand personne n'est disponible pour décrocher.",
+      },
+      {
+        q: "Est-ce que c'est une intelligence artificielle ? Est-ce qu'on entend que c'est un robot ?",
+        a: "Oui, il s'appuie sur des modèles d'intelligence artificielle avancés, et c'est précisément ce qui lui permet de comprendre, de raisonner et de répondre naturellement, au cas par cas, plutôt que de réciter un script figé. La voix est fluide, le ton chaleureux, et l'assistant s'adapte à chaque échange pour se rapprocher au maximum d'une conversation humaine. La plupart des appelants ont simplement l'impression d'être bien renseignés, rapidement. Par transparence, l'assistant se présente comme un assistant automatique en début d'appel.",
+      },
+      {
+        q: "Que peut-il faire concrètement ?",
+        a: "Il gère l'accueil courant de votre club : renseigner sur les horaires, les formules et les tarifs, expliquer comment s'inscrire ou réserver, orienter l'appelant vers votre site pour agir. Pour un club avec réservation de créneaux, il peut consulter les disponibilités en temps réel et indiquer ce qui est libre. Et lorsqu'une demande dépasse son champ, il ne s'arrête pas là : il prend le message et le transmet au club (voir plus bas).",
+      },
+      {
+        q: "Qu'est-ce qu'il ne fait pas ?",
+        a: "Il informe et oriente, mais il ne prend jamais de décision à la place d'un humain et n'encaisse aucun paiement au téléphone. Sur les sujets sensibles (une réclamation, une demande qui engage le club, une situation particulière), il ne cherche pas à trancher de lui-même. C'est un choix volontaire : l'assistant soulage vos bénévoles de l'accueil courant, il ne se substitue pas à eux sur ce qui compte vraiment.",
+      },
+      {
+        q: "Que se passe-t-il s'il ne sait pas répondre à une question ?",
+        a: "Il n'invente jamais de réponse. S'il ne dispose pas de l'information, ou si la demande relève d'une personne du club, il prend les coordonnées de l'appelant et le motif de son appel, puis transmet le tout au club par e-mail, accompagné d'un résumé de la conversation. Un bénévole peut ainsi rappeler la personne, déjà informé du contexte, au moment qui lui convient. Vous n'êtes sollicité que pour les appels qui le méritent vraiment.",
+      },
+      {
+        q: "Est-ce que ça remplace nos bénévoles ?",
+        a: "Non. L'idée n'est pas de remplacer l'humain, mais de le libérer. Vos bénévoles ne peuvent pas être au téléphone en permanence, et ce n'est pas leur rôle. L'assistant prend en charge les appels courants et répétitifs (horaires, tarifs, « comment s'inscrire »), à toute heure, y compris quand le club est fermé. Vos bénévoles se concentrent alors sur ce qui a vraiment de la valeur : la vie du club, l'accueil sur place, la relation avec les adhérents.",
+      },
+      {
+        q: "Faut-il changer de numéro de téléphone ?",
+        a: "Non, pas nécessairement. Nous pouvons mettre en place un nouveau numéro dédié, ou travailler avec votre numéro actuel selon votre configuration. Nous voyons ensemble la solution la plus adaptée à votre club au moment de la mise en place.",
+      },
+      {
+        q: "Fonctionne-t-il vraiment à toute heure et pour plusieurs appels à la fois ?",
+        a: "Oui. L'assistant répond 24h/24, 7j/7, y compris les soirs, week-ends et jours fériés. Et il peut prendre plusieurs appels simultanément : même un jour de forte affluence où tout le monde appelle en même temps, chacun obtient une réponse immédiate, sans ligne occupée ni file d'attente.",
+      },
+      {
+        q: "Le standard est-il inclus dans l'offre, ou faut-il le prendre en plus ?",
+        a: "C'est une option libre. Votre plateforme DriveAsso (votre site, l'espace adhérent, l'espace administrateur, les inscriptions et paiements en ligne, la réservation, l'outil de mailing) constitue déjà un socle complet pour gérer votre club au quotidien, et fonctionne parfaitement sans le standard. Le standard téléphonique intelligent vient se greffer par-dessus, pour les clubs qui veulent aller plus loin et passer véritablement en pilote automatique jusqu'aux appels entrants. Vous êtes libre de l'inclure ou non, selon les besoins de votre club.",
+      },
+    ],
+  },
+  {
     title: "Budget & engagement",
     items: [
       {
