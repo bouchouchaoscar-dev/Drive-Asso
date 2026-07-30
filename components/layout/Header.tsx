@@ -61,9 +61,9 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="link-underline font-display text-sm font-semibold text-ink-700 transition-colors hover:text-ink-900"
+              className="link-underline whitespace-nowrap font-display text-sm font-semibold text-ink-700 transition-colors hover:text-ink-900"
             >
-              {link.label}
+              {link.short ?? link.label}
             </Link>
           ))}
         </nav>
@@ -102,7 +102,7 @@ export function Header() {
               onClick={() => setOpen(false)}
               className="rounded-xl px-3 py-3 font-display text-base font-semibold text-ink-800 transition-colors hover:bg-mist"
             >
-              {link.label}
+              {link.short ?? link.label}
             </Link>
           ))}
           <Button

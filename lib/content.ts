@@ -12,15 +12,16 @@ export const SITE = {
   url: "https://www.drive-asso.fr",
 };
 
-export const NAV_LINKS = [
+// `short` = libellé compact utilisé dans le header (le footer garde `label`).
+export const NAV_LINKS: { label: string; href: string; short?: string }[] = [
   { label: "Accueil", href: "/#hero" },
   { label: "La solution", href: "/#solution" },
-  { label: "Standard téléphonique", href: "/standard-telephonique" },
+  { label: "Standard téléphonique", href: "/standard-telephonique", short: "Standard" },
   { label: "Pour qui ?", href: "/pour-qui" },
   { label: "Réalisations", href: "/#realisations" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/#contact" },
-] as const;
+];
 
 export const CLIENT_REF = {
   name: "Punching Boxe Nogent-Le Perreux",

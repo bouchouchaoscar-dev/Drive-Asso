@@ -41,7 +41,9 @@ export function Hero() {
               La gestion associative nouvelle génération pour votre club ou
               association sportive : un site premium aux couleurs de votre club,
               où vous pilotez tout depuis un seul espace. Vos adhérents, eux,
-              s'inscrivent en ligne et paient seuls en quelques minutes.
+              s'inscrivent en ligne et paient seuls en quelques minutes. Et pour
+              ne rater aucun appel, un standard téléphonique intelligent répond à
+              votre place, 24h/24.
             </p>
 
             <div
