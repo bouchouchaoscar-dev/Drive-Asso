@@ -5,7 +5,8 @@ import { PhoneCall, ArrowRight } from "lucide-react";
 /**
  * Teaser home : présente le standard téléphonique intelligent comme le
  * couronnement de la plateforme et renvoie vers /standard-telephonique.
- * Panneau anthracite pour trancher entre deux sections claires (signal « nouveau »).
+ * Panneau BLANC (cohérent avec le reste de la home) + accents dorés discrets
+ * (eyebrow doré, liseré doré en haut, icône dorée) comme signal « nouveau ».
  */
 export function StandardTeaser() {
   return (

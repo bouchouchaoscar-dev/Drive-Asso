@@ -598,21 +598,6 @@ function CallCard() {
           </span>
         </div>
       </div>
-
-      {/* Puce flottante : demande comprise */}
-      <div className="absolute -bottom-5 -left-4 z-20 hidden w-52 rounded-2xl border border-line bg-white p-3.5 shadow-lg sm:block">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-gold-soft text-gold-600">
-            <Wallet size={16} />
-          </span>
-          <div className="leading-tight">
-            <div className="text-[12px] font-semibold text-ink-900">
-              Tarif exact donné
-            </div>
-            <div className="text-[11px] text-smoke">depuis votre plateforme</div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
