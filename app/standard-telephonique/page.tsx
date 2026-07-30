@@ -539,7 +539,7 @@ export default function StandardTelephoniquePage() {
 function CallCard() {
   return (
     <div className="relative">
-      <div className="relative z-10 overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-900 p-6 text-white shadow-lg sm:p-7">
+      <div className="relative z-10 overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-lg ring-1 ring-black/[0.03] sm:p-7">
         {/* En-tête */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -547,25 +547,25 @@ function CallCard() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#22c55e] opacity-70" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#22c55e]" />
             </span>
-            <span className="text-[13px] font-semibold text-white/80">
+            <span className="text-[13px] font-semibold text-ink-800">
               Appel en cours
             </span>
           </div>
-          <span className="font-display text-[11px] font-semibold uppercase tracking-wide text-white/50">
+          <span className="font-display text-[11px] font-semibold uppercase tracking-wide text-smoke">
             votre-club.fr
           </span>
         </div>
 
         {/* Identité de l'assistant */}
         <div className="mt-6 flex items-center gap-3.5">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold text-ink-900">
+          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold text-ink-900 shadow-sm">
             <PhoneCall size={22} />
           </span>
           <div className="leading-tight">
-            <div className="font-display text-base font-bold">
+            <div className="font-display text-base font-bold text-ink-900">
               Standard intelligent
             </div>
-            <div className="text-[13px] text-white/60">
+            <div className="text-[13px] text-smoke">
               répond au nom de votre club
             </div>
           </div>
@@ -573,27 +573,27 @@ function CallCard() {
 
         {/* Bulles de conversation */}
         <div className="mt-6 space-y-2.5">
-          <div className="ml-auto max-w-[80%] rounded-2xl rounded-br-sm bg-white/10 px-3.5 py-2 text-[13px] text-white/90">
+          <div className="ml-auto max-w-[80%] rounded-2xl rounded-br-sm bg-mist px-3.5 py-2 text-[13px] leading-relaxed text-ink-800">
             « Bonjour, quel tarif pour ma fille de 10 ans ? »
           </div>
-          <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2 text-[13px] font-medium text-ink-900">
+          <div className="max-w-[88%] rounded-2xl rounded-bl-sm border border-gold/25 bg-gold-soft px-3.5 py-2 text-[13px] font-medium leading-relaxed text-ink-900">
             Pour les 8-11 ans, la formule Loisir est à 240 € l'année. Je vous
             explique l'inscription ?
           </div>
         </div>
 
         {/* Onde vocale + minuteur */}
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
           <div className="flex items-end gap-1" aria-hidden>
             {[10, 18, 26, 14, 22, 12, 20, 28, 16].map((h, i) => (
               <span
                 key={i}
-                className="w-1 rounded-full bg-gold/80"
+                className="w-1 rounded-full bg-gold"
                 style={{ height: `${h}px` }}
               />
             ))}
           </div>
-          <span className="font-display text-[13px] font-semibold tabular-nums text-white/70">
+          <span className="font-display text-[13px] font-semibold tabular-nums text-smoke">
             00:41
           </span>
         </div>
