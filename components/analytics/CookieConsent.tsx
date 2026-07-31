@@ -144,22 +144,24 @@ export function CookieConsent() {
         role="dialog"
         aria-live="polite"
         aria-label="Consentement aux cookies"
-        className="animate-rise w-full max-w-md rounded-2xl border border-white/10 bg-ink-900 p-5 text-white shadow-2xl sm:p-6"
+        className="animate-rise w-full max-w-md rounded-2xl border border-line bg-white p-5 text-ink-900 shadow-2xl ring-1 ring-black/5 sm:p-6"
       >
         <div className="flex items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-full bg-gold-soft text-gold-600">
             <Cookie size={17} />
           </span>
-          <h2 className="font-display text-sm font-bold">Cookies &amp; confidentialité</h2>
+          <h2 className="font-display text-sm font-bold text-ink-900">
+            Cookies &amp; confidentialité
+          </h2>
         </div>
 
-        <p className="mt-3 text-[13px] leading-relaxed text-white/70">
+        <p className="mt-3 text-[13px] leading-relaxed text-smoke">
           Nous utilisons des cookies de mesure d&apos;audience (Google Analytics)
           pour comprendre comment le site est utilisé et l&apos;améliorer. Ils ne
           sont déposés qu&apos;avec votre accord. Détails dans notre{" "}
           <a
             href="/confidentialite"
-            className="font-medium text-white underline decoration-gold/60 underline-offset-2 hover:decoration-gold"
+            className="font-medium text-ink-900 underline decoration-gold/60 underline-offset-2 hover:decoration-gold"
           >
             politique de confidentialité
           </a>
@@ -168,20 +170,20 @@ export function CookieConsent() {
 
         {details && (
           <div className="mt-4 space-y-2">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+            <div className="rounded-xl border border-line bg-mist p-3">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-semibold text-white">
+                <span className="text-[13px] font-semibold text-ink-900">
                   Cookies strictement nécessaires
                 </span>
-                <span className="text-[11px] font-semibold text-white/50">
+                <span className="text-[11px] font-semibold text-smoke">
                   Toujours actifs
                 </span>
               </div>
-              <p className="mt-1 text-[12px] leading-relaxed text-white/50">
+              <p className="mt-1 text-[12px] leading-relaxed text-smoke">
                 Indispensables au fonctionnement du site. Aucun suivi.
               </p>
             </div>
-            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-line bg-mist p-3">
               <input
                 type="checkbox"
                 checked={analytics}
@@ -189,11 +191,11 @@ export function CookieConsent() {
                 className="mt-0.5 h-4 w-4 accent-gold"
               />
               <span>
-                <span className="block text-[13px] font-semibold text-white">
+                <span className="block text-[13px] font-semibold text-ink-900">
                   Mesure d&apos;audience (Google Analytics)
                 </span>
-                <span className="mt-0.5 block text-[12px] leading-relaxed text-white/50">
-                  Cookies <code className="text-white/70">_ga</code> comptant les
+                <span className="mt-0.5 block text-[12px] leading-relaxed text-smoke">
+                  Cookies <code className="text-ink-700">_ga</code> comptant les
                   visites de façon anonymisée. Désactivés par défaut.
                 </span>
               </span>
@@ -221,7 +223,7 @@ export function CookieConsent() {
               <button
                 type="button"
                 onClick={() => setDetails(true)}
-                className="ml-auto text-[12px] font-medium text-white/60 underline underline-offset-2 transition-colors hover:text-white"
+                className="ml-auto text-[12px] font-medium text-smoke underline underline-offset-2 transition-colors hover:text-ink-900"
               >
                 Personnaliser
               </button>
@@ -238,6 +240,6 @@ const btnGold = cn(
   "transition-colors hover:bg-gold-600"
 );
 const btnGhost = cn(
-  "rounded-full border border-white/25 px-4 py-2 font-display text-[13px] font-semibold text-white",
-  "transition-colors hover:bg-white/10"
+  "rounded-full border border-line px-4 py-2 font-display text-[13px] font-semibold text-ink-900",
+  "transition-colors hover:bg-mist"
 );
