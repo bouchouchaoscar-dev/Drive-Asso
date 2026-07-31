@@ -99,6 +99,7 @@ export async function sendResumeEchange(
     sujets: string;
     interet_demo: string;
     recuLe: string;
+    appelInterrompu?: boolean;
   },
   opts?: { idempotencyKey?: string },
 ) {
@@ -127,6 +128,11 @@ export async function sendResumeEchange(
         ${ligne("Gestion actuelle des inscriptions", d.gestion_actuelle)}
         ${ligne("Sujets abordés", d.sujets)}
         ${ligne("Intérêt pour une démo", d.interet_demo)}
+        ${
+          d.appelInterrompu
+            ? `<tr><td style="padding:8px 14px 8px 0;color:#6B7280;white-space:nowrap;vertical-align:top">Déroulé</td><td style="padding:8px 0;font-weight:600;color:#b45309">Appel interrompu (le visiteur a raccroché en cours)</td></tr>`
+            : ""
+        }
         ${ligne("Reçu le", d.recuLe)}
       </table>
     </div>

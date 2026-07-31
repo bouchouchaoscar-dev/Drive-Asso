@@ -172,6 +172,70 @@ export function premierToolCallId(body: unknown): string {
   return ((first?.id ?? first?.toolCallId ?? "") as string).toString().trim();
 }
 
+/** Type d'événement Vapi (`tool-calls`, `end-of-call-report`, …). */
+export function typeMessageVapi(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? b) as Record<string, unknown>;
+  return (m.type ?? b.type ?? "").toString().trim();
+}
+
+/** Raison de fin d'appel Vapi (`customer-ended-call`, `silence-timed-out`, …). */
+export function raisonFinVapi(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? b) as Record<string, unknown>;
+  return (m.endedReason ?? m.endReason ?? "").toString().trim();
+}
+
+/** Durée de l'appel en secondes (défensif : secondes ou millisecondes selon Vapi). */
+export function dureeSecondesVapi(body: unknown): number {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? b) as Record<string, unknown>;
+  const s =
+    (m.durationSeconds as number) ??
+    (m.duration as number) ??
+    (typeof m.durationMs === "number" ? (m.durationMs as number) / 1000 : undefined);
+  const n = Number(s);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+/**
+ * Transcription complète de la conversation depuis un end-of-call-report.
+ * Cherche la chaîne `transcript` puis reconstruit depuis le tableau de messages.
+ * "" si rien d'exploitable.
+ */
+export function transcriptionVapi(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? b) as Record<string, unknown>;
+  const artifact = (m.artifact ?? {}) as Record<string, unknown>;
+
+  const direct = (
+    (m.transcript as string) ??
+    (artifact.transcript as string) ??
+    ""
+  )
+    .toString()
+    .trim();
+  if (direct) return direct;
+
+  const msgs = ((artifact.messages ?? m.messages ?? []) as Array<{
+    role?: string;
+    message?: string;
+    content?: string;
+  }>) || [];
+  if (Array.isArray(msgs) && msgs.length) {
+    return msgs
+      .filter((x) => x && (x.message || x.content) && x.role !== "system")
+      .map((x) => {
+        const who =
+          x.role === "assistant" || x.role === "bot" ? "Assistant" : "Visiteur";
+        return `${who}: ${(x.message ?? x.content ?? "").toString().trim()}`;
+      })
+      .join("\n")
+      .trim();
+  }
+  return "";
+}
+
 /** Horodatage lisible en fuseau France (Europe/Paris). */
 export function horodatageParis(d: Date = new Date()): string {
   return new Intl.DateTimeFormat("fr-FR", {
