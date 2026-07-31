@@ -501,6 +501,12 @@ export default function StandardTelephoniquePage() {
               Découvrez par vous-même à quoi ressemble une conversation avec notre
               standard intelligent.
             </p>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-700">
+              Cliquez, et laissez notre assistant vocal vous présenter DriveAsso :
+              comment ça marche, en quoi ça simplifierait la gestion de votre club.
+              Posez-lui toutes vos questions. Et au passage, vous découvrirez à quoi
+              ressemblerait votre propre standard téléphonique intelligent.
+            </p>
             <div className="mt-6">
               <SoonButton label="Testez l'assistant" />
             </div>
