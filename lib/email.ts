@@ -91,14 +91,17 @@ export async function sendDemandeDemo(d: {
  * Champs optionnels : les vides s'affichent « non précisé ». En-tête sobre aux
  * couleurs DriveAsso (anthracite + doré).
  */
-export async function sendResumeEchange(d: {
-  type_structure: string;
-  taille: string;
-  gestion_actuelle: string;
-  sujets: string;
-  interet_demo: string;
-  recuLe: string;
-}) {
+export async function sendResumeEchange(
+  d: {
+    type_structure: string;
+    taille: string;
+    gestion_actuelle: string;
+    sujets: string;
+    interet_demo: string;
+    recuLe: string;
+  },
+  opts?: { idempotencyKey?: string },
+) {
   const client = getResend();
   if (!client) return { skipped: true };
 
@@ -130,12 +133,17 @@ export async function sendResumeEchange(d: {
     <p style="color:#9ca3af;font-size:12px;margin-top:16px">Envoyé automatiquement par l'assistant vocal de www.drive-asso.fr</p>
   </div>`;
 
-  const { data, error } = await client.emails.send({
-    from: FROM,
-    to: CONTACT_TO,
-    subject: "Résumé d'échange - assistant vocal DriveAsso",
-    html,
-  });
+  // Clé d'idempotence Resend (si fournie) : Resend mémorise la clé ~24 h et
+  // n'envoie qu'UNE fois par clé, même sur des instances serverless différentes.
+  const { data, error } = await client.emails.send(
+    {
+      from: FROM,
+      to: CONTACT_TO,
+      subject: "Résumé d'échange - assistant vocal DriveAsso",
+      html,
+    },
+    opts?.idempotencyKey ? { idempotencyKey: opts.idempotencyKey } : undefined,
+  );
   if (error) {
     throw new Error(`Resend: ${error.message || "envoi refusé"}`);
   }

@@ -110,6 +110,46 @@ export function extraireToolCall(
   return null;
 }
 
+/**
+ * Identifiant STABLE de la conversation Vapi : même valeur pour les DEUX tool
+ * calls d'un même échange (contrairement au toolCallId, unique par appel). Sert
+ * de clé de déduplication. Cherche aux emplacements connus du payload ; "" si absent.
+ */
+export function identifiantConversation(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? {}) as Record<string, unknown>;
+  const mCall = (m.call ?? {}) as Record<string, unknown>;
+  const bCall = (b.call ?? {}) as Record<string, unknown>;
+  const candidats: unknown[] = [
+    mCall.id,
+    bCall.id,
+    m.callId,
+    b.callId,
+    (m as Record<string, unknown>).callSid,
+    (b as Record<string, unknown>).callSid,
+  ];
+  for (const c of candidats) {
+    const s = (c ?? "").toString().trim();
+    if (s) return s;
+  }
+  return "";
+}
+
+/**
+ * Id de la 1re tool call, MÊME si ses arguments sont vides (extraireToolCall
+ * ignore les args vides). Sert à toujours répondre avec le bon toolCallId. "" si absent.
+ */
+export function premierToolCallId(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? b) as Record<string, unknown>;
+  const calls = (m.toolCalls ?? m.tool_calls ?? m.toolCallList ?? []) as Array<{
+    id?: string;
+    toolCallId?: string;
+  }>;
+  const first = Array.isArray(calls) ? calls[0] : undefined;
+  return ((first?.id ?? first?.toolCallId ?? "") as string).toString().trim();
+}
+
 /** Horodatage lisible en fuseau France (Europe/Paris). */
 export function horodatageParis(d: Date = new Date()): string {
   return new Intl.DateTimeFormat("fr-FR", {
