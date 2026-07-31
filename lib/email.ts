@@ -24,6 +24,10 @@ const FROM =
 // Destinataire des demandes de démo.
 const CONTACT_TO = process.env.CONTACT_TO || "contact@drive-asso.fr";
 
+// Logo hébergé en URL ABSOLUE (indispensable pour l'affichage dans Gmail/Outlook ;
+// un chemin relatif casserait). Même logo que le header/footer du site.
+const LOGO_URL = "https://www.drive-asso.fr/images/driveasso-horizontal.png";
+
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
@@ -107,9 +111,12 @@ export async function sendResumeEchange(d: {
     `<tr><td style="padding:8px 14px 8px 0;color:#6B7280;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:8px 0;font-weight:600;color:#1F2937;line-height:1.5">${ou(valeur)}</td></tr>`;
 
   const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;padding:8px;color:#1F2937">
-    <div style="border-top:3px solid ${GOLD};background:#1F2937;color:#ffffff;border-radius:12px 12px 0 0;padding:16px 18px">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:${GOLD};font-weight:700">DriveAsso · Assistant vocal</div>
-      <div style="font-size:18px;font-weight:700;margin-top:2px">Résumé d'un échange</div>
+    <div style="border-top:3px solid ${GOLD};background:#1F2937;border-radius:12px 12px 0 0;padding:18px">
+      <div style="display:inline-block;background:#ffffff;border-radius:8px;padding:9px 13px;line-height:0">
+        <img src="${LOGO_URL}" alt="DriveAsso" width="120" height="60" style="display:block;width:120px;height:60px;border:0;outline:none;text-decoration:none" />
+      </div>
+      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:${GOLD};font-weight:700;margin-top:14px">Assistant vocal</div>
+      <div style="font-size:18px;font-weight:700;color:#ffffff;margin-top:2px">Résumé d'un échange</div>
     </div>
     <div style="border:1px solid #E5E7EB;border-top:none;border-radius:0 0 12px 12px;padding:16px 18px">
       <p style="color:#6B7280;margin:0 0 12px">L'assistant vocal du site a résumé une conversation avec un visiteur.</p>
