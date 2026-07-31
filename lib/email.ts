@@ -81,3 +81,58 @@ export async function sendDemandeDemo(d: {
   }
   return { id: data?.id };
 }
+
+/**
+ * Notifie l'équipe DriveAsso du résumé d'un échange composé par l'agent vocal.
+ * Champs optionnels : les vides s'affichent « non précisé ». En-tête sobre aux
+ * couleurs DriveAsso (anthracite + doré).
+ */
+export async function sendResumeEchange(d: {
+  type_structure: string;
+  taille: string;
+  gestion_actuelle: string;
+  sujets: string;
+  interet_demo: string;
+  recuLe: string;
+}) {
+  const client = getResend();
+  if (!client) return { skipped: true };
+
+  const GOLD = "#D4A017";
+  const ou = (v: string) =>
+    v && v.trim()
+      ? escapeHtml(v.trim()).replace(/\n/g, "<br>")
+      : "<em style='color:#9ca3af'>non précisé</em>";
+  const ligne = (label: string, valeur: string) =>
+    `<tr><td style="padding:8px 14px 8px 0;color:#6B7280;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:8px 0;font-weight:600;color:#1F2937;line-height:1.5">${ou(valeur)}</td></tr>`;
+
+  const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;padding:8px;color:#1F2937">
+    <div style="border-top:3px solid ${GOLD};background:#1F2937;color:#ffffff;border-radius:12px 12px 0 0;padding:16px 18px">
+      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:${GOLD};font-weight:700">DriveAsso · Assistant vocal</div>
+      <div style="font-size:18px;font-weight:700;margin-top:2px">Résumé d'un échange</div>
+    </div>
+    <div style="border:1px solid #E5E7EB;border-top:none;border-radius:0 0 12px 12px;padding:16px 18px">
+      <p style="color:#6B7280;margin:0 0 12px">L'assistant vocal du site a résumé une conversation avec un visiteur.</p>
+      <table style="border-collapse:collapse;font-size:14px;width:100%">
+        ${ligne("Type de structure", d.type_structure)}
+        ${ligne("Taille", d.taille)}
+        ${ligne("Gestion actuelle des inscriptions", d.gestion_actuelle)}
+        ${ligne("Sujets abordés", d.sujets)}
+        ${ligne("Intérêt pour une démo", d.interet_demo)}
+        ${ligne("Reçu le", d.recuLe)}
+      </table>
+    </div>
+    <p style="color:#9ca3af;font-size:12px;margin-top:16px">Envoyé automatiquement par l'assistant vocal de www.drive-asso.fr</p>
+  </div>`;
+
+  const { data, error } = await client.emails.send({
+    from: FROM,
+    to: CONTACT_TO,
+    subject: "Résumé d'échange - assistant vocal DriveAsso",
+    html,
+  });
+  if (error) {
+    throw new Error(`Resend: ${error.message || "envoi refusé"}`);
+  }
+  return { id: data?.id };
+}
