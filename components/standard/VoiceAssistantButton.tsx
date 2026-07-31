@@ -3,16 +3,18 @@
 import { useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Headphones, PhoneOff, Loader2, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 /* ============================================================
    Bouton « appeler l'assistant vocal DriveAsso » (Web SDK Vapi).
-   Au clic : demande micro (gérée par le SDK) + lance un appel WebRTC vers
-   l'assistant. Store module partagé → les 2 boutons de la page (hero + bloc
-   « Envie de l'entendre ») restent synchronisés (un seul appel à la fois).
-   Limite anti-abus dissuasive : 1 appel / jour (localStorage), contournable
-   en navigation privée, et c'est assumé.
-   Clés PUBLIQUES (front) via variables NEXT_PUBLIC_*.
+   Au clic : demande micro (gérée par le SDK) + appel WebRTC vers l'assistant.
+   Store module partagé → les 2 boutons de la page restent synchronisés
+   (un seul appel à la fois).
+   Quota anti-abus dissuasif : 6 MINUTES cumulées / jour (localStorage), peu
+   importe le nombre d'appels. Un essai très court ne pénalise quasiment pas.
+   Contournable en navigation privée, et c'est assumé.
+   Clés PUBLIQUES (front) via NEXT_PUBLIC_*.
    ============================================================ */
 
 type Status = "idle" | "connecting" | "active" | "limited" | "error";
@@ -23,10 +25,13 @@ type VapiLike = {
   on: (event: string, cb: (payload?: unknown) => void) => void;
 };
 
-const LIMIT_KEY = "da-voice-tested"; // valeur = date du dernier test (YYYY-M-D)
+const USAGE_KEY = "da-voice-usage"; // { date: "YYYY-M-D", ms: number }
+const QUOTA_MS = 6 * 60 * 1000; // 6 minutes / jour
 
 let state: State = { status: "idle", error: "" };
 let vapi: VapiLike | null = null;
+let callStart = 0; // horodatage de début d'appel (pour mesurer la durée réelle)
+let autoStop: ReturnType<typeof setTimeout> | null = null;
 const listeners = new Set<() => void>();
 
 function setState(patch: Partial<State>) {
@@ -47,20 +52,32 @@ function today() {
   const d = new Date();
   return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
-function dejaTeste() {
+function usageDuJour(): number {
   try {
-    return localStorage.getItem(LIMIT_KEY) === today();
+    const raw = localStorage.getItem(USAGE_KEY);
+    if (!raw) return 0;
+    const o = JSON.parse(raw) as { date?: string; ms?: number };
+    if (o?.date !== today()) return 0; // nouveau jour → remise à zéro
+    return typeof o.ms === "number" && o.ms > 0 ? o.ms : 0;
   } catch {
-    return false;
+    return 0;
   }
 }
-function marquerTeste() {
+function ajouterUsage(ms: number) {
   try {
-    localStorage.setItem(LIMIT_KEY, today());
+    const total = usageDuJour() + Math.max(0, ms);
+    localStorage.setItem(USAGE_KEY, JSON.stringify({ date: today(), ms: total }));
   } catch {
-    /* stockage indisponible : la limite est dissuasive, on ne bloque pas */
+    /* stockage indisponible : quota dissuasif, on ne bloque pas */
   }
 }
+function restantMs(): number {
+  return Math.max(0, QUOTA_MS - usageDuJour());
+}
+function quotaAtteint(): boolean {
+  return restantMs() <= 0;
+}
+
 function messageErreur(raw: unknown): string {
   const p = raw as { error?: { message?: string }; message?: string } | undefined;
   const m = (p?.error?.message ?? p?.message ?? "").toString().toLowerCase();
@@ -76,9 +93,23 @@ function messageErreur(raw: unknown): string {
     : "La connexion a échoué. Réessayez dans un instant.";
 }
 
+/** Fin d'appel (raccrochage utilisateur, agent, quota, ou erreur) : cumule la
+ *  durée réelle une seule fois (garde callStart), nettoie le timer, remet l'état. */
+function finaliser() {
+  if (autoStop) {
+    clearTimeout(autoStop);
+    autoStop = null;
+  }
+  if (callStart > 0) {
+    ajouterUsage(Date.now() - callStart);
+    callStart = 0;
+  }
+  setState({ status: quotaAtteint() ? "limited" : "idle", error: "" });
+}
+
 async function demarrer() {
   if (state.status === "connecting" || state.status === "active") return;
-  if (dejaTeste()) {
+  if (quotaAtteint()) {
     setState({ status: "limited", error: "" });
     return;
   }
@@ -98,13 +129,31 @@ async function demarrer() {
     if (!vapi) {
       vapi = new Vapi(cle) as unknown as VapiLike;
       vapi.on("call-start", () => {
-        marquerTeste();
+        callStart = Date.now();
+        // Coupe automatiquement l'appel quand le quota du jour est épuisé.
+        if (autoStop) clearTimeout(autoStop);
+        autoStop = setTimeout(() => {
+          try {
+            vapi?.stop();
+          } catch {
+            /* ignore */
+          }
+          finaliser();
+        }, restantMs());
         setState({ status: "active", error: "" });
       });
-      vapi.on("call-end", () => {
-        setState({ status: dejaTeste() ? "limited" : "idle", error: "" });
+      vapi.on("call-end", () => finaliser());
+      vapi.on("error", (p) => {
+        if (autoStop) {
+          clearTimeout(autoStop);
+          autoStop = null;
+        }
+        if (callStart > 0) {
+          ajouterUsage(Date.now() - callStart);
+          callStart = 0;
+        }
+        setState({ status: "error", error: messageErreur(p) });
       });
-      vapi.on("error", (p) => setState({ status: "error", error: messageErreur(p) }));
     }
     await vapi.start(assistant);
   } catch (e) {
@@ -113,12 +162,12 @@ async function demarrer() {
 }
 
 function raccrocher() {
+  finaliser(); // cumule d'abord la durée (garde callStart) …
   try {
-    vapi?.stop();
+    vapi?.stop(); // … puis l'event call-end sera un no-op (callStart déjà à 0)
   } catch {
     /* ignore */
   }
-  setState({ status: dejaTeste() ? "limited" : "idle", error: "" });
 }
 
 const btnBase =
@@ -134,9 +183,8 @@ export function VoiceAssistantButton({
 }) {
   const snap = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
-  // À l'affichage : si déjà testé aujourd'hui, on bascule sur l'état « limite ».
   useEffect(() => {
-    if (state.status === "idle" && dejaTeste())
+    if (state.status === "idle" && quotaAtteint())
       setState({ status: "limited", error: "" });
   }, []);
 
@@ -177,7 +225,7 @@ export function VoiceAssistantButton({
     return (
       <div className="flex flex-col items-center gap-3 text-center">
         <p className="max-w-xs text-[13px] leading-relaxed text-smoke">
-          Vous avez déjà testé l&apos;assistant aujourd&apos;hui. Pour aller plus
+          Vous avez atteint votre temps d&apos;essai du jour. Pour aller plus
           loin, demandez une démo.
         </p>
         <Link
@@ -219,5 +267,21 @@ export function VoiceAssistantButton({
       <Headphones size={18} className="text-gold-600" />
       {label}
     </button>
+  );
+}
+
+/**
+ * Bouton « Demander une démo » du hero, qui DISPARAÎT quand l'état « quota
+ * atteint » s'affiche (le bloc quota a déjà son propre bouton démo → un seul à
+ * l'écran). En état normal, il reste comme avant.
+ */
+export function HeroDemoButton({ className }: { className?: string }) {
+  const snap = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  if (snap.status === "limited") return null;
+  return (
+    <Button href="/#contact" size="lg" className={className}>
+      Demander une démo
+      <ArrowRight size={18} />
+    </Button>
   );
 }

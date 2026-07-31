@@ -5,7 +5,10 @@ import { RevealInit } from "@/components/ui/RevealInit";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
-import { VoiceAssistantButton } from "@/components/standard/VoiceAssistantButton";
+import {
+  VoiceAssistantButton,
+  HeroDemoButton,
+} from "@/components/standard/VoiceAssistantButton";
 import {
   ArrowRight,
   PhoneCall,
@@ -155,10 +158,7 @@ export default function StandardTelephoniquePage() {
                   className="animate-rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
                   style={{ animationDelay: "0.24s" }}
                 >
-                  <Button href="/#contact" size="lg" className="w-full sm:w-auto">
-                    Demander une démo
-                    <ArrowRight size={18} />
-                  </Button>
+                  <HeroDemoButton className="w-full sm:w-auto" />
                   <VoiceAssistantButton
                     label="Écouter l'assistant"
                     fullWidthMobile

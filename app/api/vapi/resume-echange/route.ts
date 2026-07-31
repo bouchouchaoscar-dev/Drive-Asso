@@ -3,16 +3,16 @@
 // À chaque fin de conversation, l'agent compose LUI-MÊME un résumé et appelle
 // cet outil → un mail de récap part vers contact@drive-asso.fr.
 //
-// DÉDUPLICATION (Vapi déclenche souvent le tool DEUX fois par conversation, dont
-// un appel vide puis un rempli). Approche sans base de données :
-//  - Clé d'idempotence Resend = identifiant de conversation → Resend garantit UN
-//    seul envoi par conversation (~24 h), y compris entre instances serverless.
+// DÉDUPLICATION (Vapi déclenche souvent le tool DEUX fois par conversation :
+// un appel vide + un rempli). Sans base de données :
+//  - Clé d'idempotence Resend = identifiant de conversation → 1 seul envoi par
+//    conversation (~24 h), y compris entre instances serverless.
 //  - Biais « la version remplie gagne » : un appel VIDE attend quelques secondes
-//    avant d'envoyer ; un appel REMPLI envoie tout de suite → le rempli remporte
-//    la clé, le vide devient un no-op. Si SEUL un vide arrive (conversation sans
-//    infos), il finit par envoyer après le délai (garde-fou).
-//  - Réponse à Vapi immédiate ; l'envoi se fait après via after() (l'agent
-//    n'attend jamais).
+//    avant d'envoyer ; un appel REMPLI envoie tout de suite.
+//  - FILET WEB : si AUCUN identifiant de conversation fiable n'est trouvé (cas
+//    des appels web), on n'envoie PAS un appel tout vide → impossible d'avoir le
+//    doublon (vide + rempli), seul le rempli part.
+//  - Réponse à Vapi immédiate ; l'envoi se fait après via after().
 //
 // PAS de clé Anthropic, PAS de résumé côté serveur, rien de sensible en dur.
 // Répond TOUJOURS 200 au format tool call (sauf secret invalide).
@@ -26,15 +26,13 @@ import {
   horodatageParis,
   identifiantConversation,
   premierToolCallId,
+  structurePayload,
 } from "@/lib/vapi";
 import { sendResumeEchange } from "@/lib/email";
 
 export const runtime = "nodejs";
 export const maxDuration = 15;
 
-// Délai d'attente d'un appel VIDE avant envoi : laisse le temps à une éventuelle
-// version REMPLIE de la même conversation d'envoyer en premier (elles arrivent à
-// quelques secondes d'intervalle).
 const DELAI_APPEL_VIDE_MS = 5000;
 
 export async function POST(request: Request) {
@@ -50,7 +48,6 @@ export async function POST(request: Request) {
   }
 
   const call = extraireToolCall(body, "resume_echange");
-  // toolCallId robuste : même si les arguments sont vides (extraireToolCall les ignore).
   const toolCallId = call?.id || premierToolCallId(body);
   const a = call?.args ?? {};
   const str = (v: unknown) => (v ?? "").toString().trim();
@@ -63,16 +60,17 @@ export async function POST(request: Request) {
     interet_demo: str(a.interet_demo),
   };
   const rempli = Object.values(champs).some((v) => v !== "");
-
-  // Clé de déduplication : identifiant de conversation (stable pour les 2 appels).
-  // Fallback (payload sans id de conv) : empreinte du contenu → dédupe au moins
-  // les doublons identiques. On journalise l'absence d'id pour pouvoir l'ajuster.
   const convId = identifiantConversation(body);
-  if (!convId) {
-    console.warn(
-      "resume-echange: aucun identifiant de conversation dans le payload (dédup limitée à l'empreinte de contenu).",
-    );
-  }
+
+  // DIAGNOSTIC (clés uniquement, pas de valeurs métier) : révèle où se trouve
+  // l'id de conversation en appel WEB, pour resserrer l'extraction si besoin.
+  console.log(
+    "resume-echange DIAG",
+    structurePayload(body),
+    `convId=${convId || "∅"}`,
+    `rempli=${rempli}`,
+  );
+
   const empreinte = createHash("sha1")
     .update(JSON.stringify(champs))
     .digest("hex")
@@ -81,10 +79,18 @@ export async function POST(request: Request) {
     ? `resume-echange:${convId}`
     : `resume-echange:cnt:${empreinte}`;
 
-  // Envoi APRÈS la réponse (l'agent n'attend jamais). Ne bloque jamais.
   after(async () => {
     try {
       if (!rempli) {
+        // Appel tout vide.
+        if (!convId) {
+          // Pas d'identifiant de conversation fiable (cas web) → on n'envoie PAS :
+          // évite le doublon « vide + rempli ». Seul le rempli partira.
+          return;
+        }
+        // Id fiable présent : on attend un peu que la version REMPLIE de la même
+        // conversation envoie en premier et remporte la clé d'idempotence ; ce
+        // vide devient alors un no-op. Si seul un vide arrive, il part quand même.
         await new Promise((r) => setTimeout(r, DELAI_APPEL_VIDE_MS));
       }
       await sendResumeEchange(

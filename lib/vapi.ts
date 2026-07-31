@@ -120,19 +120,41 @@ export function identifiantConversation(body: unknown): string {
   const m = (b.message ?? {}) as Record<string, unknown>;
   const mCall = (m.call ?? {}) as Record<string, unknown>;
   const bCall = (b.call ?? {}) as Record<string, unknown>;
+  const artifact = (m.artifact ?? b.artifact ?? {}) as Record<string, unknown>;
+  const aCall = (artifact.call ?? {}) as Record<string, unknown>;
+  const g = (o: Record<string, unknown>, k: string) => o[k];
+  // Emplacements connus, téléphonie ET web (le web n'a pas toujours d'objet `call`).
   const candidats: unknown[] = [
-    mCall.id,
-    bCall.id,
-    m.callId,
-    b.callId,
-    (m as Record<string, unknown>).callSid,
-    (b as Record<string, unknown>).callSid,
+    g(mCall, "id"), g(bCall, "id"), g(aCall, "id"),
+    g(mCall, "callId"), g(bCall, "callId"),
+    g(mCall, "webCallId"), g(bCall, "webCallId"),
+    g(m, "callId"), g(b, "callId"),
+    g(m, "sessionId"), g(b, "sessionId"),
+    g(mCall, "sessionId"), g(bCall, "sessionId"),
+    g(m, "callSid"), g(b, "callSid"),
   ];
   for (const c of candidats) {
     const s = (c ?? "").toString().trim();
     if (s) return s;
   }
   return "";
+}
+
+/**
+ * Structure (CLÉS uniquement, pas les valeurs métier) du payload Vapi, pour
+ * diagnostiquer où se trouve l'identifiant de conversation en appel WEB. Sûr à logger.
+ */
+export function structurePayload(body: unknown): string {
+  const b = (body ?? {}) as Record<string, unknown>;
+  const m = (b.message ?? {}) as Record<string, unknown>;
+  const call = ((m.call ?? b.call) ?? {}) as Record<string, unknown>;
+  const keys = (o: unknown) => Object.keys((o ?? {}) as object);
+  return JSON.stringify({
+    bodyKeys: keys(b),
+    messageKeys: keys(m),
+    callKeys: keys(call),
+    type: (m.type ?? b.type ?? null) as unknown,
+  });
 }
 
 /**
