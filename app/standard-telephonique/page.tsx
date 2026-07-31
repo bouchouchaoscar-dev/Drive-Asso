@@ -5,6 +5,7 @@ import { RevealInit } from "@/components/ui/RevealInit";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import { VoiceAssistantButton } from "@/components/standard/VoiceAssistantButton";
 import {
   ArrowRight,
   PhoneCall,
@@ -43,27 +44,6 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/standard-telephonique`,
   },
 };
-
-/* Bouton « démo vocale » prévu mais NON actif pour cette version. */
-function SoonButton({ label, className }: { label: string; className?: string }) {
-  return (
-    <span className={`relative inline-flex ${className ?? ""}`}>
-      <button
-        type="button"
-        disabled
-        aria-disabled="true"
-        title="Bientôt disponible"
-        className="inline-flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 font-display text-base font-semibold text-ink-700 ring-1 ring-line select-none"
-      >
-        <Headphones size={18} className="text-gold-600" />
-        {label}
-      </button>
-      <span className="absolute -right-2 -top-2 rounded-full bg-gold px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-wide text-ink-900 shadow-sm">
-        Bientôt
-      </span>
-    </span>
-  );
-}
 
 const pains = [
   {
@@ -179,9 +159,9 @@ export default function StandardTelephoniquePage() {
                     Demander une démo
                     <ArrowRight size={18} />
                   </Button>
-                  <SoonButton
+                  <VoiceAssistantButton
                     label="Écouter l'assistant"
-                    className="w-full sm:w-auto"
+                    fullWidthMobile
                   />
                 </div>
               </div>
@@ -508,7 +488,7 @@ export default function StandardTelephoniquePage() {
               ressemblerait votre propre standard téléphonique intelligent.
             </p>
             <div className="mt-6">
-              <SoonButton label="Testez l'assistant" />
+              <VoiceAssistantButton label="Testez l'assistant" />
             </div>
           </div>
         </Section>
