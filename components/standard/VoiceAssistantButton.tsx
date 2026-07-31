@@ -31,7 +31,6 @@ const QUOTA_MS = 6 * 60 * 1000; // 6 minutes / jour
 let state: State = { status: "idle", error: "" };
 let vapi: VapiLike | null = null;
 let callStart = 0; // horodatage de début d'appel (pour mesurer la durée réelle)
-let autoStop: ReturnType<typeof setTimeout> | null = null;
 const listeners = new Set<() => void>();
 
 function setState(patch: Partial<State>) {
@@ -96,10 +95,6 @@ function messageErreur(raw: unknown): string {
 /** Fin d'appel (raccrochage utilisateur, agent, quota, ou erreur) : cumule la
  *  durée réelle une seule fois (garde callStart), nettoie le timer, remet l'état. */
 function finaliser() {
-  if (autoStop) {
-    clearTimeout(autoStop);
-    autoStop = null;
-  }
   if (callStart > 0) {
     ajouterUsage(Date.now() - callStart);
     callStart = 0;
@@ -129,25 +124,14 @@ async function demarrer() {
     if (!vapi) {
       vapi = new Vapi(cle) as unknown as VapiLike;
       vapi.on("call-start", () => {
+        // On NE coupe JAMAIS un appel en cours (source d'artefacts audio) : il va
+        // à son terme (utilisateur / agent / durée max Vapi). Le quota n'est vérifié
+        // qu'au LANCEMENT du prochain appel (cf. demarrer).
         callStart = Date.now();
-        // Coupe automatiquement l'appel quand le quota du jour est épuisé.
-        if (autoStop) clearTimeout(autoStop);
-        autoStop = setTimeout(() => {
-          try {
-            vapi?.stop();
-          } catch {
-            /* ignore */
-          }
-          finaliser();
-        }, restantMs());
         setState({ status: "active", error: "" });
       });
       vapi.on("call-end", () => finaliser());
       vapi.on("error", (p) => {
-        if (autoStop) {
-          clearTimeout(autoStop);
-          autoStop = null;
-        }
         if (callStart > 0) {
           ajouterUsage(Date.now() - callStart);
           callStart = 0;
